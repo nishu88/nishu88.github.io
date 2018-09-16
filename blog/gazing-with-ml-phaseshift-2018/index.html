@@ -1,0 +1,220 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<script>try{var t=localStorage.getItem('theme');if(t==='light')document.documentElement.setAttribute('data-theme','light');}catch(e){}</script>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Naming galaxies at 74%</title>
+<meta name="description" content="A one-day machine learning contest at Phase Shift 2018: given an image of a galaxy, say which kind it is. 74% was the highest score in the room.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Naming galaxies at 74%">
+<meta property="og:description" content="A one-day machine learning contest at Phase Shift 2018: given an image of a galaxy, say which kind it is. 74% was the highest score in the room.">
+<meta property="og:image" content="https://nishu88.github.io/assets/img/old_hacks/phaseshift-2018-certificate.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>&#127942;</text></svg>">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=JetBrains+Mono:wght@400;700&display=swap">
+<link rel="stylesheet" href="../../assets/css/style.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to main content</a>
+<nav class="sitenav">
+  <a class="brand" href="../../">Nishanth Aluhonnu</a>
+  <a class="back" href="../../">All posts</a>
+  <span class="spacer"></span>
+  <button id="theme-toggle" type="button" aria-label="Switch to light theme">
+    <svg class="i-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12.8A9 9 0 1111.2 3a7 7 0 009.8 9.8z"/></svg>
+    <svg class="i-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+    <span id="theme-label">Light</span>
+  </button>
+</nav>
+<main id="main">
+<div class="wrap">
+  <header class="masthead col">
+    <p class="kicker">Gazing with Machine Learning · Phase Shift 2018, BMS College of Engineering</p>
+    <h1>Naming galaxies at 74%<span class="thin"></span></h1>
+    <p class="deck">A one-day contest, a problem statement handed out on the morning, and a model that had to be built from nothing. The model is long gone. The certificate still says what it scored.</p>
+    <div class="byline">
+      <span class="who">Nishanth Aluhonnu</span>
+      <span class="meta">InterruptZero</span>
+      <span class="meta">·</span>
+      <span class="meta">16 Sep 2018</span>
+      <span class="meta">·</span>
+      <span class="meta">3 min read</span>
+      <span class="meta" id="post-views" hidden></span>
+    </div>
+  </header>
+
+  <div class="col">
+
+    <p class="lede">Phase Shift is BMS College of Engineering's annual tech symposium, and in 2018 it ran on the 15th and 16th of September. One of the events was called Gazing with Machine Learning. Rajat Keshri and I entered it from RVCE.</p>
+
+    <h2><span class="num">01</span>The format</h2>
+
+    <p>The rules were simple and slightly brutal. You turned up, they handed out a problem statement, and you built a machine learning model for it from scratch, that day, in the room. There was no take-home phase, no dataset published a week in advance, no chance to arrive with something already trained and claim you had written it that morning.</p>
+
+    <p>That format rewards a narrow thing: how quickly you can get from a problem you have never seen to a model that runs at all. Elegance is not on the scorecard. Neither is anything you cannot finish before the clock stops.</p>
+
+    <h2><span class="num">02</span>The problem: name the galaxy</h2>
+
+    <p>The problem they handed out was galaxy classification. An image of a galaxy goes in, and the model has to say what type of galaxy it is.</p>
+
+    <p>It is a good competition problem, because it looks easier than it is. Galaxy morphology does not sort itself into tidy visual buckets. The categories shade into one another, plenty of images are faint or partly obscured, and the difference between two classes can come down to the shape of something at the edge of the resolution you have been given. A human squinting at the same picture will hesitate too.</p>
+
+    <figure>
+      <img src="../../assets/img/old_hacks/phaseshift-2018-certificate.jpg" alt="Certificate of Excellence from BMS College of Engineering. Handwritten fields read: Nishanth D A, from RVCE, event Gazing with ML, secured the I place. Printed text records the National Level Annual Tech Symposium, Phase Shift 2018, held on the 15th and 16th of September 2018.">
+      <figcaption>The certificate is the only surviving record of the day, and the only reason the date is exact.</figcaption>
+    </figure>
+
+    <h2><span class="num">03</span>Seventy-four per cent</h2>
+
+    <p>The model finished at 74% accuracy. That was the highest score among the participants, and it won first place and ₹3,000.</p>
+
+    <p>Both halves of that sentence matter, and they matter in different directions. Seventy-four per cent is not a good number in any absolute sense. Read it off a page with no context and it looks like a model that is wrong one time in four. It was also the best anyone managed in that room on that day, which tells you rather more about the problem, the time limit and the hardware in the room than it does about the model.</p>
+
+    <p class="pull">A score only means something next to the thing it is being compared with. 74% was a weak result against the literature and the best result available in the room, at the same time.</p>
+
+    <p>That is worth holding onto, because the habit of asking "compared to what?" turns out to be the useful part of competitive machine learning, and it long outlasts any particular model you build.</p>
+
+    <h2><span class="num">04</span>What did not survive</h2>
+
+    <p>Almost everything. There is no repository for this one. No notebook, no weights, no write-up of the architecture, no record of the dataset we were given or how many classes it had. I am not going to reconstruct any of that from memory eight years later and present it as fact, because a reconstruction is what it would be.</p>
+
+    <p>What survives is the certificate above, a line in a document I typed up in December 2019, and one number. It is the first entry in this archive, and the only one of the eight where I can tell you exactly how well the thing worked.</p>
+
+    <div class="note">
+      <p>Every other project in this series has more code and less evidence. This one has no code and a measured result. Given the choice I would rather have the number.</p>
+    </div>
+
+
+    <footer class="end">
+      <ul class="tags">
+        <li>BMS College of Engineering</li><li>Phase Shift 2018</li><li>Machine Learning</li><li>Computer Vision</li><li>Astronomy</li><li>RVCE</li>
+      </ul>
+      <p>Nishanth Aluhonnu (InterruptZero) · 16 September 2018</p>
+    </footer>
+  </div>
+</div>
+</main>
+<script>
+(function(){
+  var root=document.documentElement,
+      btn=document.getElementById('theme-toggle'),
+      lbl=document.getElementById('theme-label');
+  function paint(){
+    var light=root.getAttribute('data-theme')==='light';
+    lbl.textContent=light?'Dark':'Light';
+    btn.setAttribute('aria-label','Switch to '+(light?'dark':'light')+' theme');
+  }
+  paint();
+  btn.addEventListener('click',function(){
+    var light=root.getAttribute('data-theme')==='light';
+    if(light){ root.removeAttribute('data-theme'); }
+    else { root.setAttribute('data-theme','light'); }
+    try{ localStorage.setItem('theme', light?'dark':'light'); }catch(e){}
+    paint();
+  });
+})();
+</script>
+<script>
+(function(){
+  var imgs = document.querySelectorAll('figure img');
+  if(!imgs.length) return;
+  var box = null, opener = null;
+
+  function close(){
+    if(!box) return;
+    document.removeEventListener('keydown', onKey, true);
+    box.remove(); box = null;
+    document.body.classList.remove('lb-open');
+    if(opener){ opener.focus(); opener = null; }
+  }
+  function onKey(e){
+    if(e.key === 'Escape'){ e.preventDefault(); close(); return; }
+    if(e.key === 'Tab' && box){           // only one control inside, so keep focus on it
+      e.preventDefault();
+      box.querySelector('.close').focus();
+    }
+  }
+  function open(img){
+    if(box) return;
+    opener = img;
+    var fig = img.closest('figure'),
+        cap = fig && fig.querySelector('figcaption');
+
+    box = document.createElement('div');
+    box.className = 'lightbox';
+    box.setAttribute('role','dialog');
+    box.setAttribute('aria-modal','true');
+    box.setAttribute('aria-label', img.alt ? img.alt.slice(0,120) : 'Enlarged image');
+
+    var btn = document.createElement('button');
+    btn.type = 'button'; btn.className = 'close';
+    btn.setAttribute('aria-label','Close image');
+    btn.textContent = '\u00d7';
+
+    var big = document.createElement('img');
+    big.src = img.currentSrc || img.src;
+    big.alt = img.alt || '';
+
+    box.appendChild(btn);
+    box.appendChild(big);
+    if(cap){
+      var p = document.createElement('p');
+      p.className = 'cap'; p.textContent = cap.textContent;
+      box.appendChild(p);
+    }
+    document.body.appendChild(box);
+    document.body.classList.add('lb-open');
+    btn.focus();
+    box.addEventListener('click', close);
+    document.addEventListener('keydown', onKey, true);
+  }
+
+  Array.prototype.forEach.call(imgs, function(img){
+    img.tabIndex = 0;
+    img.setAttribute('role','button');
+    img.setAttribute('aria-label','Enlarge image' + (img.alt ? ': ' + img.alt.slice(0,80) : ''));
+    img.addEventListener('click', function(){ open(img); });
+    img.addEventListener('keydown', function(e){
+      if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); open(img); }
+    });
+  });
+})();
+</script>
+
+<!-- ── Analytics ──────────────────────────────────────────────────────────
+     Both are cookieless, so no consent banner is needed.
+     GoatCounter dashboard : https://nishu88.goatcounter.com
+     Cloudflare            : dash.cloudflare.com → Analytics & Logs → Web Analytics
+     Neither fires on localhost / 127.0.0.1 (see the guard below).           -->
+<script>window.__analytics = !/^(localhost|127\.0\.0\.1|\[::1\])$/.test(location.hostname);</script>
+<script>
+if(window.__analytics){
+  var g=document.createElement('script');
+  g.async=true; g.src='//gc.zgo.at/count.js';
+  g.setAttribute('data-goatcounter','https://nishu88.goatcounter.com/count');
+  document.head.appendChild(g);
+
+  var c=document.createElement('script');
+  c.type='module'; c.src='https://static.cloudflareinsights.com/beacon.min.js';
+  c.setAttribute('data-cf-beacon','{"token":"1c7f8f5a63014833bc865585958e417c"}');
+  document.head.appendChild(c);
+}
+</script>
+<script>
+(function(){
+  if(!window.__analytics) return;
+  var el = document.getElementById('post-views');
+  if(!el) return;
+  fetch('https://nishu88.goatcounter.com/counter/' + encodeURIComponent(location.pathname) + '.json', {mode:'cors'})
+    .then(function(r){ return r.ok ? r.json() : Promise.reject(); })
+    .then(function(d){
+      var n = parseInt(String(d.count).replace(/[^0-9]/g,''), 10);
+      if(!n || n <= 0) return;
+      el.textContent = '\u00b7 ' + n.toLocaleString() + (n === 1 ? ' view' : ' views');
+      el.hidden = false;
+    }).catch(function(){});
+})();
+</script>
+</body>
+</html>
