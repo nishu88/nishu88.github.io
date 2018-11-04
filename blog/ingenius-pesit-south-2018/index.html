@@ -1,0 +1,256 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<script>try{var t=localStorage.getItem('theme');if(t==='light')document.documentElement.setAttribute('data-theme','light');}catch(e){}</script>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Attendance you cannot fake</title>
+<meta name="description" content="Twenty-four hours at inGenius 2k18 building a class attendance system that listens. Speaker recognition catches who is talking; a random word catches the recording.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Attendance you cannot fake">
+<meta property="og:description" content="Twenty-four hours at inGenius 2k18 building a class attendance system that listens. Speaker recognition catches who is talking; a random word catches the recording.">
+<meta property="og:image" content="https://nishu88.github.io/assets/img/old_hacks/ingenius-2018-cheques.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>&#127942;</text></svg>">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=JetBrains+Mono:wght@400;700&display=swap">
+<link rel="stylesheet" href="../../assets/css/style.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to main content</a>
+<nav class="sitenav">
+  <a class="brand" href="../../">Nishanth Aluhonnu</a>
+  <a class="back" href="../../">All posts</a>
+  <span class="spacer"></span>
+  <button id="theme-toggle" type="button" aria-label="Switch to light theme">
+    <svg class="i-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12.8A9 9 0 1111.2 3a7 7 0 009.8 9.8z"/></svg>
+    <svg class="i-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+    <span id="theme-label">Light</span>
+  </button>
+</nav>
+<main id="main">
+<div class="wrap">
+  <header class="masthead col">
+    <p class="kicker">inGenius 2k18 · PES University, Electronic City Campus</p>
+    <h1>Attendance you cannot fake<span class="thin"></span></h1>
+    <p class="deck">Speaker recognition tells you who is speaking. It does not tell you they are in the room. Closing that gap was the whole project, and it took one extra word.</p>
+    <div class="byline">
+      <span class="who">Nishanth Aluhonnu</span>
+      <span class="meta">InterruptZero</span>
+      <span class="meta">·</span>
+      <span class="meta">4 Nov 2018</span>
+      <span class="meta">·</span>
+      <span class="meta">4 min read</span>
+      <span class="meta" id="post-views" hidden></span>
+    </div>
+  </header>
+
+  <div class="col">
+
+    <p class="lede">inGenius is the flagship hackathon of the PESIT South IEEE Computer Society, and 2k18 was its seventh edition. Twenty-four hours, 3rd and 4th of November, at the PES University Electronic City campus. The theme was Open Hack, which is to say there was no theme. Teams of two or three, around ₹1,00,000 in prizes, about 250 teams submitting ideas and roughly 100 making it through to the hack itself.</p>
+
+    <p>Rajat Keshri and I went as a team of two. We were table 63, and we called ourselves Interrupt Zero.</p>
+
+    <figure class="bleed">
+      <img src="../../assets/img/old_hacks/ingenius-2018-pitch.jpg" alt="Two students standing at the front of a lecture hall during the inGenius 2018 final presentations. One is speaking into a handheld microphone; a laptop screen is visible at the edge of frame. The inGenius 2018 logo is watermarked in the corner.">
+      <figcaption>Presenting at the end of the twenty-four hours. Official event photo, inGenius 2018.</figcaption>
+    </figure>
+
+    <h2><span class="num">01</span>The problem nobody in the room needed explained</h2>
+
+    <p>Proxy attendance is the small, universal fraud of Indian engineering college. A lecturer reads out roll numbers, and somebody who is not that person says "present". Everyone knows it happens. Everyone has done it or had it done for them. It is the sort of problem you can pitch to a room of students and judges without a single slide of background.</p>
+
+    <p>So: take attendance from voice. Each student says their roll number, the system works out whether the voice belongs to the person that roll number is registered to, and marks them present.</p>
+
+    <h2><span class="num">02</span>Speaker recognition is not enough</h2>
+
+    <p>That design has an obvious hole in it, and the hole is the interesting part of the project.</p>
+
+    <p>Speaker recognition answers the question "whose voice is this?". It does not answer "is that person here?". If attendance depends on a voice saying a roll number, then a recording of that voice saying that roll number is just as good. The fraud does not go away. It gets easier, because now it scales: record once, replay every week.</p>
+
+    <p class="pull">Any authentication system built on something you can capture is really an authentication system for whoever captured it.</p>
+
+    <p>What we did about it was small and cheap. The system asks for the roll number, transcribes it with Google's speech-to-text API, and checks it against the register. If it matches, it does not mark you present. It generates a random word, shows it to you, and asks you to say that too.</p>
+
+    <p>A recording cannot answer a question it has never heard. The attacker would need the target's voice saying an arbitrary word chosen a second ago, which means they would need the target. That is the whole defence, and it is one extra round trip.</p>
+
+    <div class="note">
+      <p>This is a challenge-response scheme, which I did not know at the time. We arrived at it by asking what we would do if we wanted to beat our own demo, which turns out to be a reasonable substitute for knowing the literature.</p>
+    </div>
+
+    <figure class="portrait">
+      <img src="../../assets/img/old_hacks/ingenius-2018-polaroid.jpg" alt="A hand holding two Polaroid photographs. The upper one shows two students holding signs reading hashtag I Am A Hacker and hashtag get Set Hack, with a handwritten caption reading Interrupt 0 at inGenius 2018. The lower Polaroid shows the forty thousand rupee cheque.">
+      <figcaption>Polaroids from the organisers, captioned by hand on the day. The team name has followed me since.</figcaption>
+    </figure>
+
+    <h2><span class="num">03</span>Two models, because we could not choose</h2>
+
+    <p>For the speaker recognition itself we built the thing twice, along two separate paths, and kept both in the repository.</p>
+
+    <p>One path used Hidden Markov Models. Enrolment took five voice samples from a new student and trained a per-speaker model; a second script could retrain from samples already on disk without asking the student to come back. Prediction loaded the models and scored a fresh sample against them. Attendance state lived in a CSV, with a script to reset the day's column each morning and another to write the day's results back.</p>
+
+    <p>The other path used a convolutional network over a folder-per-speaker dataset layout, with its own training and prediction scripts.</p>
+
+    <p>There was no principled reason for two implementations. We were not sure which would work well enough by the deadline, we had two people, and a hackathon is exactly the situation where hedging beats committing. It is a bad habit in production and a good one at 3am with a demo due.</p>
+
+    <h2><span class="num">04</span>What we never measured</h2>
+
+    <p>Nowhere in that repository is there an accuracy figure. Not for the HMM path, not for the CNN path, not for the two together. No confusion matrix, no held-out set, no false-accept rate, which for an authentication system is the number that actually matters.</p>
+
+    <p>We knew it worked because we watched it work, on our own voices, in a quiet room, with a handful of enrolled speakers. That is a demo, not an evaluation, and the difference is the thing I would go back and explain to the two people at table 63.</p>
+
+    <h2><span class="num">05</span>The result</h2>
+
+    <p>First place, and ₹40,000. Second place took ₹20,000.</p>
+
+    <figure class="bleed">
+      <img src="../../assets/img/old_hacks/ingenius-2018-cheques.jpg" alt="Prize giving at inGenius 2018. Winners hold two oversized cheques from PES University Electronic City Campus, one for forty thousand rupees and one for twenty thousand rupees, both dated 04 slash 11 slash 2018, surrounded by sponsor logos.">
+      <figcaption>The cheques carry their own date: 04/11/2018. First place ₹40,000, second ₹20,000.</figcaption>
+    </figure>
+
+    <p>A year later the organisers put the win on their own feed, and described the project in one sentence: "The winning team developed an application that takes the attendance of a class based on the voice of students." That is a fair summary, and it is notably missing the part we were proudest of.</p>
+
+    <figure class="portrait">
+      <img src="../../assets/img/old_hacks/ingenius-2018-winners-card.jpg" alt="A social media graphic showing the winning team holding the forty thousand rupee cheque, with a gold first place medal icon and the caption: The winning team developed an application that takes the attendance of a class based on the voice of students.">
+      <figcaption>The organisers' own description, posted the following year.</figcaption>
+    </figure>
+
+    <figure>
+      <img src="../../assets/img/old_hacks/ingenius-2018-certificate.jpg" alt="inGenius 2018 certificate from PES University Electronic City Campus, reading: This is to certify that Nishanth D A has secured the 1st place. Signed by the COO of PES Institutions, the Director and Principal of PES University Electronic City, and the faculty co-ordinator of the PESIT South IEEE Computer Society.">
+      <figcaption>Signed by the PES Institutions COO, the campus Principal, and the IEEE Computer Society faculty co-ordinator.</figcaption>
+    </figure>
+
+    <p>The code is still up, unchanged since 2019, path bugs and all: <a href="https://github.com/nishu88/InGenius-2018-hackathon">github.com/nishu88/InGenius-2018-hackathon</a>. The README ends by warning you to fix the hardcoded paths before running anything, which tells you most of what you need to know about how it was written.</p>
+
+
+    <footer class="end">
+      <ul class="tags">
+        <li>PES University</li><li>IEEE Computer Society</li><li>Speaker Recognition</li><li>Hidden Markov Models</li><li>CNN</li><li>Speech Recognition</li><li>Python</li><li>RVCE</li>
+      </ul>
+      <p>Nishanth Aluhonnu (InterruptZero) · 4 November 2018</p>
+    </footer>
+  </div>
+</div>
+</main>
+<script>
+(function(){
+  var root=document.documentElement,
+      btn=document.getElementById('theme-toggle'),
+      lbl=document.getElementById('theme-label');
+  function paint(){
+    var light=root.getAttribute('data-theme')==='light';
+    lbl.textContent=light?'Dark':'Light';
+    btn.setAttribute('aria-label','Switch to '+(light?'dark':'light')+' theme');
+  }
+  paint();
+  btn.addEventListener('click',function(){
+    var light=root.getAttribute('data-theme')==='light';
+    if(light){ root.removeAttribute('data-theme'); }
+    else { root.setAttribute('data-theme','light'); }
+    try{ localStorage.setItem('theme', light?'dark':'light'); }catch(e){}
+    paint();
+  });
+})();
+</script>
+<script>
+(function(){
+  var imgs = document.querySelectorAll('figure img');
+  if(!imgs.length) return;
+  var box = null, opener = null;
+
+  function close(){
+    if(!box) return;
+    document.removeEventListener('keydown', onKey, true);
+    box.remove(); box = null;
+    document.body.classList.remove('lb-open');
+    if(opener){ opener.focus(); opener = null; }
+  }
+  function onKey(e){
+    if(e.key === 'Escape'){ e.preventDefault(); close(); return; }
+    if(e.key === 'Tab' && box){           // only one control inside, so keep focus on it
+      e.preventDefault();
+      box.querySelector('.close').focus();
+    }
+  }
+  function open(img){
+    if(box) return;
+    opener = img;
+    var fig = img.closest('figure'),
+        cap = fig && fig.querySelector('figcaption');
+
+    box = document.createElement('div');
+    box.className = 'lightbox';
+    box.setAttribute('role','dialog');
+    box.setAttribute('aria-modal','true');
+    box.setAttribute('aria-label', img.alt ? img.alt.slice(0,120) : 'Enlarged image');
+
+    var btn = document.createElement('button');
+    btn.type = 'button'; btn.className = 'close';
+    btn.setAttribute('aria-label','Close image');
+    btn.textContent = '\u00d7';
+
+    var big = document.createElement('img');
+    big.src = img.currentSrc || img.src;
+    big.alt = img.alt || '';
+
+    box.appendChild(btn);
+    box.appendChild(big);
+    if(cap){
+      var p = document.createElement('p');
+      p.className = 'cap'; p.textContent = cap.textContent;
+      box.appendChild(p);
+    }
+    document.body.appendChild(box);
+    document.body.classList.add('lb-open');
+    btn.focus();
+    box.addEventListener('click', close);
+    document.addEventListener('keydown', onKey, true);
+  }
+
+  Array.prototype.forEach.call(imgs, function(img){
+    img.tabIndex = 0;
+    img.setAttribute('role','button');
+    img.setAttribute('aria-label','Enlarge image' + (img.alt ? ': ' + img.alt.slice(0,80) : ''));
+    img.addEventListener('click', function(){ open(img); });
+    img.addEventListener('keydown', function(e){
+      if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); open(img); }
+    });
+  });
+})();
+</script>
+
+<!-- ── Analytics ──────────────────────────────────────────────────────────
+     Both are cookieless, so no consent banner is needed.
+     GoatCounter dashboard : https://nishu88.goatcounter.com
+     Cloudflare            : dash.cloudflare.com → Analytics & Logs → Web Analytics
+     Neither fires on localhost / 127.0.0.1 (see the guard below).           -->
+<script>window.__analytics = !/^(localhost|127\.0\.0\.1|\[::1\])$/.test(location.hostname);</script>
+<script>
+if(window.__analytics){
+  var g=document.createElement('script');
+  g.async=true; g.src='//gc.zgo.at/count.js';
+  g.setAttribute('data-goatcounter','https://nishu88.goatcounter.com/count');
+  document.head.appendChild(g);
+
+  var c=document.createElement('script');
+  c.type='module'; c.src='https://static.cloudflareinsights.com/beacon.min.js';
+  c.setAttribute('data-cf-beacon','{"token":"1c7f8f5a63014833bc865585958e417c"}');
+  document.head.appendChild(c);
+}
+</script>
+<script>
+(function(){
+  if(!window.__analytics) return;
+  var el = document.getElementById('post-views');
+  if(!el) return;
+  fetch('https://nishu88.goatcounter.com/counter/' + encodeURIComponent(location.pathname) + '.json', {mode:'cors'})
+    .then(function(r){ return r.ok ? r.json() : Promise.reject(); })
+    .then(function(d){
+      var n = parseInt(String(d.count).replace(/[^0-9]/g,''), 10);
+      if(!n || n <= 0) return;
+      el.textContent = '\u00b7 ' + n.toLocaleString() + (n === 1 ? ' view' : ' views');
+      el.hidden = false;
+    }).catch(function(){});
+})();
+</script>
+</body>
+</html>
