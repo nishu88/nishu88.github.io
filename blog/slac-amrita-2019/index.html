@@ -1,0 +1,255 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<script>try{var t=localStorage.getItem('theme');if(t==='light')document.documentElement.setAttribute('data-theme','light');}catch(e){}</script>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>A voice assistant with the internet switched off</title>
+<meta name="description" content="GE Healthcare's brief at SLAC 2019: voice control for medical systems, authenticated, with no network. Twenty-four hours at Amrita to build it on a PC and a phone.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="A voice assistant with the internet switched off">
+<meta property="og:description" content="GE Healthcare's brief at SLAC 2019: voice control for medical systems, authenticated, with no network. Twenty-four hours at Amrita to build it on a PC and a phone.">
+<meta property="og:image" content="https://nishu88.github.io/assets/img/old_hacks/slac-2019-team-cheque.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>&#127942;</text></svg>">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=JetBrains+Mono:wght@400;700&display=swap">
+<link rel="stylesheet" href="../../assets/css/style.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to main content</a>
+<nav class="sitenav">
+  <a class="brand" href="../../">Nishanth Aluhonnu</a>
+  <a class="back" href="../../">All posts</a>
+  <span class="spacer"></span>
+  <button id="theme-toggle" type="button" aria-label="Switch to light theme">
+    <svg class="i-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12.8A9 9 0 1111.2 3a7 7 0 009.8 9.8z"/></svg>
+    <svg class="i-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+    <span id="theme-label">Light</span>
+  </button>
+</nav>
+<main id="main">
+<div class="wrap">
+  <header class="masthead col">
+    <p class="kicker">Stay Late And Code 2019 · Amrita School of Engineering, sponsored by GE Healthcare</p>
+    <h1>A voice assistant with the internet switched off<span class="thin"></span></h1>
+    <p class="deck">Surgeons cannot use a touchscreen with wet or gloved hands. GE's brief was voice control that authenticates the speaker and never leaves the machine, which rules out every easy answer at once.</p>
+    <div class="byline">
+      <span class="who">Nishanth Aluhonnu</span>
+      <span class="meta">InterruptZero</span>
+      <span class="meta">·</span>
+      <span class="meta">31 Mar 2019</span>
+      <span class="meta">·</span>
+      <span class="meta">4 min read</span>
+      <span class="meta" id="post-views" hidden></span>
+    </div>
+  </header>
+
+  <div class="col">
+
+    <p class="lede">Stay Late and Code is Amrita School of Engineering's annual hackathon. The 2019 edition ran over the 30th and 31st of March, twenty-four hours, about 250 teams submitting and roughly 80 making it through. GE Healthcare sponsored it and set four problem statements. We picked one.</p>
+
+    <p>Interrupt Zero this time was three people: Mahadev Maitri, Vijay Koundinya and me.</p>
+
+    <h2><span class="num">01</span>The brief</h2>
+
+    <p>GE's problem statement is worth reading as they wrote it, because the constraint is buried in the middle of a sentence:</p>
+
+<pre><code>Compatible System Assistant: Similar to Alexa, Siri, develop a
+voice control package which could run on System without connecting
+to Internet with a very limited voice command set to authenticate
+user and authorize him/her to control the System.</code></pre>
+
+    <p>And the reason, which they also supplied:</p>
+
+<pre><code>The medical systems offered by GE are mostly used in sterile/wet
+environment and often user needs to interact with the system by
+using the touchpad/keyboard which is difficult as hands could be
+wet/need to re-sterile after using the system, he/she could be
+wearing gloves and the touchpad doesn't recognize the input.</code></pre>
+
+    <p>It is a good brief because the justification is concrete and the constraint follows from it. Somebody in an operating theatre has hands they cannot use on a touchpad, and re-sterilising is not free. Voice is the obvious answer. And a machine in that room may not have a network, may not be allowed one, and certainly should not be shipping theatre audio to somebody's cloud.</p>
+
+    <h2><span class="num">02</span>Why "offline" is the whole problem</h2>
+
+    <p>Five months earlier we had built a voice system that leaned on Google's speech-to-text API. Send audio up, get text back. The hard part was never the recognition, because somebody else had already solved the recognition.</p>
+
+    <p>Take the network away and that entire arrangement collapses. No API. No large model, because it has to run on whatever the machine already is. And the accuracy you were borrowing from a cloud service is now yours to produce.</p>
+
+    <p class="pull">The interesting constraint in a brief is usually the one phrased as an aside. "Without connecting to Internet" is six words, and it invalidates the solution everybody in the room already knows.</p>
+
+    <p>The way out is the second half of the brief: <em>a very limited voice command set</em>. You do not need open-vocabulary transcription to operate a machine. You need to reliably tell a dozen fixed words apart. That is a much smaller problem, and a small problem is one that fits offline.</p>
+
+    <figure class="bleed">
+      <img src="../../assets/img/old_hacks/slac-2019-lab.jpg" alt="Two team members working at desktop machines in a university computer lab during the overnight hackathon, lit by the monitors. Keyboards, a mouse and a phone on the desk in front.">
+      <figcaption>In the lab at Amrita, partway through the twenty-four hours.</figcaption>
+    </figure>
+
+    <h2><span class="num">03</span>What we built</h2>
+
+    <p>Two pieces, both required to run with the network unplugged.</p>
+
+    <p><strong>Command recognition.</strong> We retrained TensorFlow's Simple Audio Recognition model on a small fixed vocabulary: words like <em>on</em>, <em>off</em>, <em>start</em>, <em>stop</em>. That model is designed for exactly this shape of problem: keyword spotting over a handful of short words, small enough to run on device. Retraining it on the command set, rather than reaching for general transcription, is what made the offline requirement survivable.</p>
+
+    <p><strong>Authentication.</strong> Hidden Markov Models again, per speaker, as at inGenius. The same approach we already knew, applied to the half of the brief that said <em>authenticate user and authorize him/her</em>. Crucially it also runs locally, so neither half of the system needed a network.</p>
+
+    <p>We shipped it on two platforms: an Android app, and a Flask application so the same model could run on a Windows PC. The deck we pitched with was titled <em>Voice Based Assistant with Authentication</em>, and the multi-platform angle was deliberate, because GE's brief asked for something customisable per product rather than a single fixed appliance.</p>
+
+    <div class="note">
+      <p>The judges' feedback, as recorded at the time, singled out the scalability and the fact that we had it running on both web and Android. Not the models. The thing that landed was that it worked in two places, which is a product argument rather than a technical one.</p>
+    </div>
+
+    <h2><span class="num">04</span>What carried over</h2>
+
+    <p>This was the second of three speech problems in five months, and the first time the repetition paid off. The HMM work from November went in almost directly. Knowing that speaker identity and word recognition are separate problems, solved by separate models, meant we did not waste any of the twenty-four hours discovering it.</p>
+
+    <p>What we still did not do was measure anything. There is no accuracy figure for the command recogniser, none for the authenticator, and no false-accept rate. For something whose job is to authorise control of a medical device, that is the number that would actually matter. The slides have four "Results" sections and every one of them is a screenshot.</p>
+
+    <h2><span class="num">05</span>Result</h2>
+
+    <p>First place, ₹15,000. Second took ₹10,000.</p>
+
+    <figure class="bleed">
+      <img src="../../assets/img/old_hacks/slac-2019-team-cheque.jpg" alt="Three team members standing in an open corridor at Amrita School of Engineering, holding a cheque with Amrita, GE Healthcare and SLAC logos. It is filled in by hand: Interrupt Zero, R V College of Engineering, Fifteen thousand, fifteen thousand rupees, dated 31st March 2019.">
+      <figcaption>Made out by hand to Interrupt Zero. The cheque is where the team name is written down most plainly.</figcaption>
+    </figure>
+
+    <figure class="bleed">
+      <img src="../../assets/img/old_hacks/slac-2019-prizes.jpg" alt="The contents of the prize laid out on a wooden table: the GE Healthcare cheque for fifteen thousand rupees, a SLAC 2019 Certificate of Appreciation, a GitHub git cheat sheet, GitHub Flow cards, Markdown syntax stickers and assorted SLAC stickers.">
+      <figcaption>The rest of it. A cheque, a certificate, and a table of stickers and cheat sheets.</figcaption>
+    </figure>
+
+    <p>The code, the Android project and the original pitch deck are still up at <a href="https://github.com/nishu88/StayLateAndCode-SLAC-2019-Hackathon">github.com/nishu88/StayLateAndCode-SLAC-2019-Hackathon</a>. The README there is written by Vijay, not me.</p>
+
+
+    <footer class="end">
+      <ul class="tags">
+        <li>Amrita School of Engineering</li><li>GE Healthcare</li><li>TensorFlow</li><li>Hidden Markov Models</li><li>Speech Recognition</li><li>Android</li><li>Flask</li><li>RVCE</li>
+      </ul>
+      <p>Nishanth Aluhonnu (InterruptZero) · 31 March 2019</p>
+    </footer>
+  </div>
+</div>
+</main>
+<script>
+(function(){
+  var root=document.documentElement,
+      btn=document.getElementById('theme-toggle'),
+      lbl=document.getElementById('theme-label');
+  function paint(){
+    var light=root.getAttribute('data-theme')==='light';
+    lbl.textContent=light?'Dark':'Light';
+    btn.setAttribute('aria-label','Switch to '+(light?'dark':'light')+' theme');
+  }
+  paint();
+  btn.addEventListener('click',function(){
+    var light=root.getAttribute('data-theme')==='light';
+    if(light){ root.removeAttribute('data-theme'); }
+    else { root.setAttribute('data-theme','light'); }
+    try{ localStorage.setItem('theme', light?'dark':'light'); }catch(e){}
+    paint();
+  });
+})();
+</script>
+<script>
+(function(){
+  var imgs = document.querySelectorAll('figure img');
+  if(!imgs.length) return;
+  var box = null, opener = null;
+
+  function close(){
+    if(!box) return;
+    document.removeEventListener('keydown', onKey, true);
+    box.remove(); box = null;
+    document.body.classList.remove('lb-open');
+    if(opener){ opener.focus(); opener = null; }
+  }
+  function onKey(e){
+    if(e.key === 'Escape'){ e.preventDefault(); close(); return; }
+    if(e.key === 'Tab' && box){           // only one control inside, so keep focus on it
+      e.preventDefault();
+      box.querySelector('.close').focus();
+    }
+  }
+  function open(img){
+    if(box) return;
+    opener = img;
+    var fig = img.closest('figure'),
+        cap = fig && fig.querySelector('figcaption');
+
+    box = document.createElement('div');
+    box.className = 'lightbox';
+    box.setAttribute('role','dialog');
+    box.setAttribute('aria-modal','true');
+    box.setAttribute('aria-label', img.alt ? img.alt.slice(0,120) : 'Enlarged image');
+
+    var btn = document.createElement('button');
+    btn.type = 'button'; btn.className = 'close';
+    btn.setAttribute('aria-label','Close image');
+    btn.textContent = '\u00d7';
+
+    var big = document.createElement('img');
+    big.src = img.currentSrc || img.src;
+    big.alt = img.alt || '';
+
+    box.appendChild(btn);
+    box.appendChild(big);
+    if(cap){
+      var p = document.createElement('p');
+      p.className = 'cap'; p.textContent = cap.textContent;
+      box.appendChild(p);
+    }
+    document.body.appendChild(box);
+    document.body.classList.add('lb-open');
+    btn.focus();
+    box.addEventListener('click', close);
+    document.addEventListener('keydown', onKey, true);
+  }
+
+  Array.prototype.forEach.call(imgs, function(img){
+    img.tabIndex = 0;
+    img.setAttribute('role','button');
+    img.setAttribute('aria-label','Enlarge image' + (img.alt ? ': ' + img.alt.slice(0,80) : ''));
+    img.addEventListener('click', function(){ open(img); });
+    img.addEventListener('keydown', function(e){
+      if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); open(img); }
+    });
+  });
+})();
+</script>
+
+<!-- ── Analytics ──────────────────────────────────────────────────────────
+     Both are cookieless, so no consent banner is needed.
+     GoatCounter dashboard : https://nishu88.goatcounter.com
+     Cloudflare            : dash.cloudflare.com → Analytics & Logs → Web Analytics
+     Neither fires on localhost / 127.0.0.1 (see the guard below).           -->
+<script>window.__analytics = !/^(localhost|127\.0\.0\.1|\[::1\])$/.test(location.hostname);</script>
+<script>
+if(window.__analytics){
+  var g=document.createElement('script');
+  g.async=true; g.src='//gc.zgo.at/count.js';
+  g.setAttribute('data-goatcounter','https://nishu88.goatcounter.com/count');
+  document.head.appendChild(g);
+
+  var c=document.createElement('script');
+  c.type='module'; c.src='https://static.cloudflareinsights.com/beacon.min.js';
+  c.setAttribute('data-cf-beacon','{"token":"1c7f8f5a63014833bc865585958e417c"}');
+  document.head.appendChild(c);
+}
+</script>
+<script>
+(function(){
+  if(!window.__analytics) return;
+  var el = document.getElementById('post-views');
+  if(!el) return;
+  fetch('https://nishu88.goatcounter.com/counter/' + encodeURIComponent(location.pathname) + '.json', {mode:'cors'})
+    .then(function(r){ return r.ok ? r.json() : Promise.reject(); })
+    .then(function(d){
+      var n = parseInt(String(d.count).replace(/[^0-9]/g,''), 10);
+      if(!n || n <= 0) return;
+      el.textContent = '\u00b7 ' + n.toLocaleString() + (n === 1 ? ' view' : ' views');
+      el.hidden = false;
+    }).catch(function(){});
+})();
+</script>
+</body>
+</html>
