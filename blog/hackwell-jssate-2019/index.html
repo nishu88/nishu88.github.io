@@ -1,0 +1,237 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<script>try{var t=localStorage.getItem('theme');if(t==='light')document.documentElement.setAttribute('data-theme','light');}catch(e){}</script>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Counting who spoke, and when</title>
+<meta name="description" content="Honeywell's problem at Hackwell 1.0: given an audio file with several people talking, count the speaker changes. No enrolment, no names, no known number of speakers.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Counting who spoke, and when">
+<meta property="og:description" content="Honeywell's problem at Hackwell 1.0: given an audio file with several people talking, count the speaker changes. No enrolment, no names, no known number of speakers.">
+<meta property="og:image" content="https://nishu88.github.io/assets/img/old_hacks/hackwell-2019-cheque.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>&#127942;</text></svg>">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=JetBrains+Mono:wght@400;700&display=swap">
+<link rel="stylesheet" href="../../assets/css/style.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to main content</a>
+<nav class="sitenav">
+  <a class="brand" href="../../">Nishanth Aluhonnu</a>
+  <a class="back" href="../../">All posts</a>
+  <span class="spacer"></span>
+  <button id="theme-toggle" type="button" aria-label="Switch to light theme">
+    <svg class="i-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12.8A9 9 0 1111.2 3a7 7 0 009.8 9.8z"/></svg>
+    <svg class="i-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+    <span id="theme-label">Light</span>
+  </button>
+</nav>
+<main id="main">
+<div class="wrap">
+  <header class="masthead col">
+    <p class="kicker">Hackwell 1.0 · JSS Academy of Technical Education, sponsored by Honeywell</p>
+    <h1>Counting who spoke, and when<span class="thin"></span></h1>
+    <p class="deck">The third speech problem in five months, and the first one where nobody told us who the speakers were, how many there were, or gave us a single sample to learn them from.</p>
+    <div class="byline">
+      <span class="who">Nishanth Aluhonnu</span>
+      <span class="meta">InterruptZero</span>
+      <span class="meta">·</span>
+      <span class="meta">13 Apr 2019</span>
+      <span class="meta">·</span>
+      <span class="meta">3 min read</span>
+      <span class="meta" id="post-views" hidden></span>
+    </div>
+  </header>
+
+  <div class="col">
+
+    <p class="lede">Hackwell 1.0 ran at JSS Academy of Technical Education in Bengaluru over the 12th and 13th of April 2019, twenty-four hours, sponsored end to end by Honeywell. Around 100 teams registered and submitted portfolios; 57 made it to the hack. Rajat Keshri and I went as a pair, as we had at inGenius.</p>
+
+    <p>The tagline printed across the banner was <em>Every Line Matters</em>, which in retrospect was optimistic about how much of anyone's code survives a hackathon.</p>
+
+    <h2><span class="num">01</span>The problem</h2>
+
+    <p>Given an audio file with multiple people speaking, work out the number of speaker changes.</p>
+
+    <p>That is the entire statement, and it is deceptively small. It is a slice of what the literature calls speaker diarization, the "who spoke when" problem, though a deliberately narrowed slice, and the narrowing is what makes it a good twenty-four-hour problem rather than a research project.</p>
+
+    <h2><span class="num">02</span>Counting is not identifying</h2>
+
+    <p>Worth being precise about what this task does and does not ask for, because the difference is the whole design.</p>
+
+    <p>It does not ask who the speakers are. There are no names to attach, no register to check against, no enrolled voiceprints. It does not even tell you how many people are talking. What it asks for is the count of transitions: the number of moments where the person speaking stops being one person and starts being another.</p>
+
+    <p>Set against the two problems that came before it, the pattern is obvious in hindsight:</p>
+
+    <p>At inGenius in November, the system knew exactly who might speak. There was a register, everybody had enrolled with five samples, and the question was which of a known, closed set of people this voice belonged to.</p>
+
+    <p>At SLAC in March, we still had enrolment for the authentication half, though the recognition half had to work offline on a fixed vocabulary.</p>
+
+    <p>Here there was nothing. No enrolment, no closed set, no vocabulary. Every piece of prior knowledge the earlier problems handed us had been taken away, and what remained was the raw signal and a question about its structure.</p>
+
+    <p class="pull">Each of the three problems removed one assumption the last one had given us for free. That is a better curriculum than anyone designed on purpose.</p>
+
+    <p>What you are left looking for is change, not identity. You do not need to know whose voice this is; you need to notice that the voice has stopped being the same voice. That is a fundamentally different question, and it is answerable without ever learning a single speaker.</p>
+
+    <figure class="bleed">
+      <img src="../../assets/img/old_hacks/hackwell-2019-cheque.jpg" alt="Two students on stage in front of a large Hackwell 1.0 banner reading Every Line Matters, JSS Academy of Technical Education Bengaluru, 12th and 13th April 2019, sponsored by Honeywell. They hold a winners cheque for sixty thousand rupees.">
+      <figcaption>Hackwell 1.0, and the biggest cheque in this archive by some distance.</figcaption>
+    </figure>
+
+    <h2><span class="num">03</span>What is not recorded</h2>
+
+    <p>How we actually did it, is the honest answer.</p>
+
+    <p>There is no repository for Hackwell. No notebook, no scripts, nothing pushed to GitHub before or after. The only contemporaneous record is a paragraph I typed into a document that December, and it describes the problem rather than the solution. The certificate confirms the placing and the date, and that is where the evidence stops.</p>
+
+    <p>I could tell you what we probably reached for, and it would be a reasonable guess, and it would still be a guess dressed up as a memory. So the method goes unrecorded. Of the three speech projects, this is the one that won the most and left the least.</p>
+
+    <div class="note">
+      <p>Two of the eight things in this archive have no surviving code at all. Both of them won. The correlation is not causal: it is just that in 2019 I pushed a repository when the project had one, and a twenty-four-hour build on a borrowed laptop often did not.</p>
+    </div>
+
+    <h2><span class="num">04</span>Result</h2>
+
+    <p>First place, and ₹60,000, the largest prize of the eight. Second place took ₹40,000, and the pool went deeper still, with a runner-up prize and two consolation prizes behind that.</p>
+
+    <figure>
+      <img src="../../assets/img/old_hacks/hackwell-2019-certificate.jpg" alt="Hackwell 1.0 Certificate of Appreciation with a Honeywell logo, certifying that Nishanth D Aluhonnu of R.V.C.E. has won I prize in Hackwell 1.0, a 24 hour hackathon sponsored by Honeywell and organised by JSSATE Bengaluru, held on the 12th and 13th of April 2019. Signed by the Principal, the Dean of Research, and a director from L and T T.">
+      <figcaption>Signed by the JSSATE Principal, the Dean of Research, and a Honeywell-side director.</figcaption>
+    </figure>
+
+    <p>Five months, three problems, one on-stage photo each, and a steadily decreasing amount of information handed to us at the start. The next one was not about speech at all.</p>
+
+
+    <footer class="end">
+      <ul class="tags">
+        <li>JSSATE</li><li>Honeywell</li><li>Speaker Diarization</li><li>Speech Processing</li><li>Machine Learning</li><li>RVCE</li>
+      </ul>
+      <p>Nishanth Aluhonnu (InterruptZero) · 13 April 2019</p>
+    </footer>
+  </div>
+</div>
+</main>
+<script>
+(function(){
+  var root=document.documentElement,
+      btn=document.getElementById('theme-toggle'),
+      lbl=document.getElementById('theme-label');
+  function paint(){
+    var light=root.getAttribute('data-theme')==='light';
+    lbl.textContent=light?'Dark':'Light';
+    btn.setAttribute('aria-label','Switch to '+(light?'dark':'light')+' theme');
+  }
+  paint();
+  btn.addEventListener('click',function(){
+    var light=root.getAttribute('data-theme')==='light';
+    if(light){ root.removeAttribute('data-theme'); }
+    else { root.setAttribute('data-theme','light'); }
+    try{ localStorage.setItem('theme', light?'dark':'light'); }catch(e){}
+    paint();
+  });
+})();
+</script>
+<script>
+(function(){
+  var imgs = document.querySelectorAll('figure img');
+  if(!imgs.length) return;
+  var box = null, opener = null;
+
+  function close(){
+    if(!box) return;
+    document.removeEventListener('keydown', onKey, true);
+    box.remove(); box = null;
+    document.body.classList.remove('lb-open');
+    if(opener){ opener.focus(); opener = null; }
+  }
+  function onKey(e){
+    if(e.key === 'Escape'){ e.preventDefault(); close(); return; }
+    if(e.key === 'Tab' && box){           // only one control inside, so keep focus on it
+      e.preventDefault();
+      box.querySelector('.close').focus();
+    }
+  }
+  function open(img){
+    if(box) return;
+    opener = img;
+    var fig = img.closest('figure'),
+        cap = fig && fig.querySelector('figcaption');
+
+    box = document.createElement('div');
+    box.className = 'lightbox';
+    box.setAttribute('role','dialog');
+    box.setAttribute('aria-modal','true');
+    box.setAttribute('aria-label', img.alt ? img.alt.slice(0,120) : 'Enlarged image');
+
+    var btn = document.createElement('button');
+    btn.type = 'button'; btn.className = 'close';
+    btn.setAttribute('aria-label','Close image');
+    btn.textContent = '\u00d7';
+
+    var big = document.createElement('img');
+    big.src = img.currentSrc || img.src;
+    big.alt = img.alt || '';
+
+    box.appendChild(btn);
+    box.appendChild(big);
+    if(cap){
+      var p = document.createElement('p');
+      p.className = 'cap'; p.textContent = cap.textContent;
+      box.appendChild(p);
+    }
+    document.body.appendChild(box);
+    document.body.classList.add('lb-open');
+    btn.focus();
+    box.addEventListener('click', close);
+    document.addEventListener('keydown', onKey, true);
+  }
+
+  Array.prototype.forEach.call(imgs, function(img){
+    img.tabIndex = 0;
+    img.setAttribute('role','button');
+    img.setAttribute('aria-label','Enlarge image' + (img.alt ? ': ' + img.alt.slice(0,80) : ''));
+    img.addEventListener('click', function(){ open(img); });
+    img.addEventListener('keydown', function(e){
+      if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); open(img); }
+    });
+  });
+})();
+</script>
+
+<!-- ── Analytics ──────────────────────────────────────────────────────────
+     Both are cookieless, so no consent banner is needed.
+     GoatCounter dashboard : https://nishu88.goatcounter.com
+     Cloudflare            : dash.cloudflare.com → Analytics & Logs → Web Analytics
+     Neither fires on localhost / 127.0.0.1 (see the guard below).           -->
+<script>window.__analytics = !/^(localhost|127\.0\.0\.1|\[::1\])$/.test(location.hostname);</script>
+<script>
+if(window.__analytics){
+  var g=document.createElement('script');
+  g.async=true; g.src='//gc.zgo.at/count.js';
+  g.setAttribute('data-goatcounter','https://nishu88.goatcounter.com/count');
+  document.head.appendChild(g);
+
+  var c=document.createElement('script');
+  c.type='module'; c.src='https://static.cloudflareinsights.com/beacon.min.js';
+  c.setAttribute('data-cf-beacon','{"token":"1c7f8f5a63014833bc865585958e417c"}');
+  document.head.appendChild(c);
+}
+</script>
+<script>
+(function(){
+  if(!window.__analytics) return;
+  var el = document.getElementById('post-views');
+  if(!el) return;
+  fetch('https://nishu88.goatcounter.com/counter/' + encodeURIComponent(location.pathname) + '.json', {mode:'cors'})
+    .then(function(r){ return r.ok ? r.json() : Promise.reject(); })
+    .then(function(d){
+      var n = parseInt(String(d.count).replace(/[^0-9]/g,''), 10);
+      if(!n || n <= 0) return;
+      el.textContent = '\u00b7 ' + n.toLocaleString() + (n === 1 ? ' view' : ' views');
+      el.hidden = false;
+    }).catch(function(){});
+})();
+</script>
+</body>
+</html>
