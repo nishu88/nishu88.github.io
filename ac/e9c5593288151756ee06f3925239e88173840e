@@ -1,0 +1,23 @@
+blog/blockchain-summit-juincubator-2019/index.html
+  s_1200d0b05bc7c4::t_e0112f3d36766e 88-92
+blog/hackwell-jssate-2019/index.html
+  s_1200d0b05bc7c4::t_e0112f3d36766e 75-79
+index.html
+  s_1200d0b05bc7c4::t_4879dd8628d9c4 34
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "ace9c5593288151756ee06f3925239e88173840e",
+  "prompts": {},
+  "sessions": {
+    "s_1200d0b05bc7c4": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "bc9adbb0-f63c-49cd-9eae-b6cb65b9c8c8",
+        "model": "claude-opus-5"
+      },
+      "human_author": "Nishanth D Aluhonnu <29069343+nishu88@users.noreply.github.com>"
+    }
+  }
+}
