@@ -1,0 +1,37 @@
+blog/two-we-didnt-win-2018-2019/index.html
+  s_1200d0b05bc7c4::t_a9fa6bc6450292 238
+view-baselines.txt
+  s_1200d0b05bc7c4::t_a9fa6bc6450292 8,19-25,28
+index.html
+  s_1200d0b05bc7c4::t_a9fa6bc6450292 241-247,249
+blog/blockchain-summit-juincubator-2019/index.html
+  s_1200d0b05bc7c4::t_a9fa6bc6450292 218
+blog/hackwell-jssate-2019/index.html
+  s_1200d0b05bc7c4::t_a9fa6bc6450292 226
+blog/gazing-with-ml-phaseshift-2018/index.html
+  s_1200d0b05bc7c4::t_a9fa6bc6450292 209
+blog/slac-amrita-2019/index.html
+  s_1200d0b05bc7c4::t_a9fa6bc6450292 244
+blog/ingenius-pesit-south-2018/index.html
+  s_1200d0b05bc7c4::t_a9fa6bc6450292 245
+blog/business-marathon-esummit-2019/index.html
+  s_1200d0b05bc7c4::t_a9fa6bc6450292 227
+README.md
+  s_1200d0b05bc7c4::t_2a6e5d395dedeb 135
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "081a3a8359aac57affe451f787c9c2cadf42c773",
+  "prompts": {},
+  "sessions": {
+    "s_1200d0b05bc7c4": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "bc9adbb0-f63c-49cd-9eae-b6cb65b9c8c8",
+        "model": "claude-opus-5"
+      },
+      "human_author": "Nishanth D Aluhonnu <29069343+nishu88@users.noreply.github.com>"
+    }
+  }
+}
