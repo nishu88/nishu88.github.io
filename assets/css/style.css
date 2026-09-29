@@ -264,7 +264,7 @@ body.lb-open{overflow:hidden}
 
 /* ── home stats strip ───────────────────────────── */
 .stats{
-  display:grid;grid-template-columns:repeat(auto-fit,minmax(9rem,1fr));gap:1px;
+  display:grid;grid-template-columns:repeat(2,minmax(8rem,1fr));gap:1px;max-width:26rem;
   background:var(--border);border:1px solid var(--border);border-radius:12px;
   overflow:hidden;margin:0 0 2.5rem;
 }
@@ -280,7 +280,4 @@ body.lb-open{overflow:hidden}
 .stats .v .unit{font-size:.62em;font-weight:600;color:var(--dim);margin-left:.2em;letter-spacing:0}
 .stats .s.live .v{color:var(--gold)}
 .stats .s[hidden]{display:none}
-.statlink{margin:1.4rem 0 0;font-family:var(--display);font-size:.84rem}
-.statlink a{color:var(--dim);text-decoration:none}
-.statlink a:hover{color:var(--gold)}
-.statlink a[hidden]{display:none}
+.stats[hidden]{display:none}

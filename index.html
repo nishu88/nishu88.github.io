@@ -29,12 +29,9 @@
   <h1>Writing</h1>
   <p class="tagline">Engineering notes on agentic AI, AWS, and things with scoreboards.</p>
 
-  <div class="stats">
-    <div class="s"><p class="k">Posts</p><p class="v">1</p></div>
-    <div class="s"><p class="k">Words</p><p class="v">2.6<span class="unit">k</span></p></div>
-    <div class="s"><p class="k">Latest</p><p class="v">Sep<span class="unit">2026</span></p></div>
+  <div class="stats" id="stats" hidden>
     <div class="s live" id="s-views" hidden><p class="k">Views</p><p class="v" id="v-views">&mdash;</p></div>
-    <div class="s live" id="s-uniq" hidden><p class="k">Readers</p><p class="v" id="v-uniq">&mdash;</p></div>
+    <div class="s live" id="s-uniq"  hidden><p class="k">Readers</p><p class="v" id="v-uniq">&mdash;</p></div>
   </div>
 
   <div class="cards">
@@ -45,7 +42,6 @@
       <ul class="pills"><li>Cisco</li><li>AWS</li><li>AWS AI League</li><li>Agentic AI</li><li>Amazon Bedrock</li><li>Token Economics</li></ul>
     </a>
   </div>
-  <p class="statlink"><a id="full-stats" href="https://nishu88.goatcounter.com/" hidden>Full stats \u2192</a></p>
 </main>
 <footer class="foot">© 2026 Nishanth Aluhonnu</footer>
 <script>
@@ -174,14 +170,13 @@ if(window.__analytics){
     if(n === null || n <= 0) return;
     document.getElementById(valId).textContent = n.toLocaleString();
     document.getElementById(tileId).hidden = false;
+    document.getElementById('stats').hidden = false;   // container appears with its first tile
   }
 
   // site totals
   get('TOTAL').then(function(d){
     fill('s-views','v-views', num(d.count));
     fill('s-uniq','v-uniq',  num(d.count_unique));
-    var link = document.getElementById('full-stats');
-    if(link) link.hidden = false;                       // dashboard link, once we know stats exist
   }).catch(function(){});
 
   // this post's own count, on its card
