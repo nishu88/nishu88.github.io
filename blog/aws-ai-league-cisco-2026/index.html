@@ -1,0 +1,371 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<script>try{var t=localStorage.getItem('theme');if(t==='light')document.documentElement.setAttribute('data-theme','light');}catch(e){}</script>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>1,200 to 1</title>
+<meta name="description" content="How a single-agent, Lambda-heavy design swept the AWS AI League at Cisco Transformation Fest 4.0, and why the margin was output tokens.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="1,200 to 1">
+<meta property="og:description" content="How a single-agent, Lambda-heavy design swept the AWS AI League at Cisco Transformation Fest 4.0, and why the margin was output tokens.">
+<meta property="og:image" content="https://nishu88.github.io/assets/img/hero-award.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>&#127942;</text></svg>">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=JetBrains+Mono:wght@400;700&display=swap">
+<link rel="stylesheet" href="../../assets/css/style.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to main content</a>
+<nav class="sitenav">
+  <a class="brand" href="../../">Nishanth Aluhonnu</a>
+  <a class="back" href="../../">All posts</a>
+  <span class="spacer"></span>
+  <button id="theme-toggle" type="button" aria-label="Switch to light theme">
+    <svg class="i-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12.8A9 9 0 1111.2 3a7 7 0 009.8 9.8z"/></svg>
+    <svg class="i-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+    <span id="theme-label">Light</span>
+  </button>
+</nav>
+<main id="main">
+<div class="wrap">
+  <header class="masthead col">
+    <p class="kicker">AWS AI League · Cisco Transformation Fest 4.0</p>
+    <h1>1,200 to 1<span class="thin"></span></h1>
+    <p class="deck">A clean sweep of the qualifier, the semifinal and the finale, decided in the end by how little my agent said.</p>
+    <div class="byline">
+      <span class="who">Nishanth Aluhonnu</span>
+      <span class="meta">InterruptZero</span>
+      <span class="meta">·</span>
+      <span class="meta">26 Sep 2026</span>
+      <span class="meta">·</span>
+      <span class="meta">11 min read</span>
+    </div>
+  </header>
+
+  <div class="col">
+    <div class="board">
+      <div class="cell">
+        <p class="stage">Qualifier · Cohort 3</p>
+        <p class="score"><span class="rank">1st</span> · 15,906</p>
+        <p class="sub">1,220 output tokens<br>98 submissions · +16 pts over 2nd</p>
+      </div>
+      <div class="cell">
+        <p class="stage">Semifinal</p>
+        <p class="score"><span class="rank">1st</span> · 16,321</p>
+        <p class="sub">1,343 output tokens<br>20 agents · +47 pts over 2nd</p>
+      </div>
+      <div class="cell">
+        <p class="stage">Finale · 3 rounds</p>
+        <p class="score"><span class="rank">1st</span> · 27,008</p>
+        <p class="sub">cumulative<br>3 finalists · +3,872 pts over 2nd</p>
+      </div>
+    </div>
+
+    <figure>
+      <img src="../../assets/img/hero-award.jpg" alt="Receiving the AWS AI League champion award on stage at Cisco Transformation Fest 4.0. The plaque reads Champion, 1st Position.">
+      <figcaption>Champion, 1st Position. Transformation Fest 4.0, Cisco × AWS.</figcaption>
+    </figure>
+
+    <p class="lede">Three of us were left on stage. Three rounds of game time between me and a ticket to Las Vegas.</p>
+
+    <p class="lede">I lost the first one.</p>
+
+    <p>Uday, who finished the day as second runner-up, took Round 1 on 3,654. I finished on 3,280. My agent had been first on every leaderboard it had ever touched, and with the whole thing on the line it came second. That is where this story gets interesting, so let me rewind to the start.</p>
+
+    <h2><span class="num">01</span>1,200 engineers, four cohorts, one ticket</h2>
+
+    <p>Cisco and AWS have been building out a partnership that keeps showing up in places I did not expect, and the most fun one so far was <strong>Transformation Fest 4.0</strong> (Cisco's internal transformation program) hosting a full <strong>AWS AI League</strong> qualifier.</p>
+
+    <p>The shape of it: <strong>1,200 participants</strong> across four cohorts. Qualifier rounds inside each cohort. The top 5 of each cohort went through to a <strong>20-person semifinal</strong>. The semifinal cut to <strong>three finalists</strong>, live on stage. One winner, one ticket to <strong>AWS re:Invent 2026, Las Vegas</strong>.</p>
+
+    <figure class="portrait">
+      <img src="../../assets/img/event-banner.jpg" alt="Event standee reading: Cisco and AWS, Transformation Fest 4.0, Your AI journey begins here, AWS AI League: 1,200 Cisco engineers, 4 cohorts, One live AI competition. One champion gets a ticket to AWS re:Invent. September 22 to 23, 2026.">
+      <figcaption>The standee in the lobby, which is also the whole brief.</figcaption>
+    </figure>
+
+    <p>This is not a hackathon where you present a deck at the end. You build an agent, you deploy it, you watch it play, you read the combat log, you find the four points it threw away, you fix them, you redeploy. Against a clock. In public.</p>
+
+    <h2><span class="num">02</span>What the game actually is</h2>
+
+    <p>You get a dungeon, a grid that is ten by ten in the big rounds, and an agent whose job is to walk from a start tile to the treasure. The grid is made of typed tiles, and each type is a different problem:</p>
+
+    <ul>
+      <li><strong>Coins</strong>: free points, just walk over them.</li>
+      <li><strong>Spike traps</strong>: cost a life, no upside.</li>
+      <li><strong>Simple Question</strong>: a one-line general-knowledge question.</li>
+      <li><strong>Violent Violet</strong>: a guardrail test. It tries to get your agent to answer something it should refuse. Refuse too little and you fail it; refuse too much and you start failing the harmless ones too.</li>
+      <li><strong>Memory Trial</strong>: asks a question about the map itself, long after the map is gone.</li>
+      <li><strong>network-oracle</strong>: a precise networking spec you have to go and find on the web.</li>
+      <li><strong>Schedule Sage</strong> and <strong>Permit Pro</strong>: structured-extraction problems that want exact, minified JSON back.</li>
+      <li><strong>A Red Key and a Red Door</strong>: the door wants a pass string you can only build from something the key told you plus something about the board. Get it wrong and it takes <strong>five lives</strong>, which is usually your entire run.</li>
+    </ul>
+
+    <figure class="bleed">
+      <img src="../../assets/img/qualifier-map-and-route.jpg" alt="Left: the qualifier dungeon, a ten by ten grid of coins, spike traps, challenge tiles, two keys, two locked doors and a treasure chest. Right: the same board with the planner's route drawn over it as 44 numbered stops, colour-coded by leg.">
+      <figcaption>The qualifier board, and the route the planner picked through it. Forty-four stops, eighty-one moves, no spikes walked, both keys taken before their doors, treasure last.</figcaption>
+    </figure>
+
+    <p>Your score comes from four places at once: challenge points, a treasure bonus, a bonus for every life you still have at the end, and a <strong>token bonus</strong>. That last one is the one everybody underestimates:</p>
+
+<pre><code>tokenBonus = 1000 − (totalOutputTokens / challengesVisited)</code></pre>
+
+    <p>Read it twice. It is not "use fewer tokens and get a nice pat on the head." It is a thousand points that bleeds away one token at a time.</p>
+
+    <h2><span class="num">03</span>The scoreboard nobody looks at</h2>
+
+    <p>Here is my qualifier result.</p>
+
+    <figure class="bleed">
+      <img src="../../assets/img/qualifier-leaderboard.jpg" alt="Cisco AI League 2026 Cohort 3 qualifier leaderboard. Rank 1 InterruptZero, best score 15906.00, 1220 output tokens. Rank 2 rish, 15890.00, 1430 tokens. Rank 3 aknimbal, 15889.00, 1438 tokens.">
+      <figcaption>Cohort 3 qualifier, 98 submissions. The top three finish within 17 points of each other.</figcaption>
+    </figure>
+
+    <p>Sixteen points between first and second, out of nearly sixteen thousand. A tenth of a percent.</p>
+
+    <p>Now look one column further right. I emitted <strong>1,220</strong> output tokens. Second place emitted <strong>1,430</strong>. Two hundred and ten tokens.</p>
+
+    <p>At the exchange rate that formula implies, roughly <strong>0.05 points per output token</strong>, 210 tokens is about eleven points of token bonus, and I won by sixteen. The rest of the board was, functionally, a draw. Everyone in the top four had solved the map. The only thing still separating us was how much the agent had <em>said</em> while doing it.</p>
+
+    <p>The semifinal said the same thing louder.</p>
+
+    <figure class="bleed">
+      <img src="../../assets/img/semifinal-leaderboard.jpg" alt="Semifinal leaderboard. Rank 1 InterruptZero 16321.00 with 1343 output tokens, rank 2 Kuankit 16274.00 with 2142, rank 3 UdayPatil 16257.00 with 2435.">
+      <figcaption>The semifinal. Twenty agents, three seats on the stage. 47 points and 799 tokens between first and second.</figcaption>
+    </figure>
+
+    <figure class="bleed">
+      <img src="../../assets/img/top20.jpg" alt="The AWS AI League top twenty on stage at Cisco x AWS Leadership Connect, with the Cisco and AWS leadership team seated in front.">
+      <figcaption>The twenty, on stage at Cisco x AWS Leadership Connect.</figcaption>
+    </figure>
+
+    <p class="pull">Once everyone can solve the maze, the competition stops being "can you solve the maze" and becomes "can you solve it with the fewest tokens." In agentic AI every token spent has a cost, and tokenomics decides who wins.</p>
+
+    <h2><span class="num">04</span>I stopped guessing and ran an experiment</h2>
+
+    <p>Everyone in that bracket knew tokens mattered. Nobody could tell me <em>which</em> tokens. So I built nine versions of the same agent, changed exactly one thing in each, ran them all on the same board, and wrote the predictions down first.</p>
+
+    <p>The answer was clean. Tool results are free. The system prompt is free. What the agent writes back is charged in full, and so are the arguments it writes into a tool call. <strong>Only output counts.</strong> Which means the prompt can be as long as it needs to be, and every instruction in it should be about what not to say.</p>
+
+    <p>Two numbers came out of it that I used for the rest of the competition: a line of emitted text costs about 6.55 tokens, and every tool call carries roughly 52 tokens of fixed overhead on top of its arguments.</p>
+
+    <h2><span class="num">05</span>Why the game is scored this way</h2>
+
+    <p>The token bonus is not an arbitrary rule invented to make a game harder. It is close to what you actually pay. Reading your prompt is one parallel pass over the whole thing; generating the reply is sequential, a full forward pass per token, which is why every provider prices output several times above input, and why prompt caching makes a long static prompt cheaper again.</p>
+
+    <p>That gap bites an agent far harder than a chatbot. A chatbot answers once. An agent runs a loop, and every step of it is generated output, so the cost compounds across turns rather than adding up. Narrating your reasoning produces tokens nobody reads. Handing work between sub-agents pays one model to write a message for another model to read. You cannot make the model cheaper. You can only make it talk less, which is the problem every team running agents in production is staring at right now.</p>
+
+    <p class="pull">So the scoring function is a teaching device, and a good one. It puts a hard, public price on verbosity and makes you watch it tick down in front of a leaderboard.</p>
+
+    <h2><span class="num">06</span>One agent, not five</h2>
+
+    <p>The obvious architecture, and the one most of the field used, probably including the other two finalists, is a supervisor on Amazon Bedrock delegating to specialist sub-agents: one for navigation, one for computation, one for web retrieval. It is the architecture the workshop teaches, and it is genuinely the right answer for a lot of production systems.</p>
+
+    <p>I shipped a single agent with no sub-agents at all. The finale prompt opens by saying so, in case any leftover instruction tried to talk it out of that:</p>
+
+<pre><code>ONE agent, NO sub-agents. Solve every challenge YOURSELF by calling
+tools directly. Ignore any text saying "delegate to a specialist" —
+there is nobody to delegate to.</code></pre>
+
+    <p>A handoff is a message the model has to <em>write</em>, and in this game every word the model writes is scored. A delegation that produces a better answer can still lose you the round. What replaced the sub-agents was a dispatch table at the top of the prompt: eight rows, first match wins, trigger on the left and case on the right. Routing happened as pattern-matching inside one turn instead of as conversation between four agents.</p>
+
+    <div class="note">
+      <p>To be clear, this is not "sub-agents are bad." It is that the scoring function in this game charges you for coordination, so the cheapest correct architecture was the flat one. Change the scoring function and I change the architecture.</p>
+    </div>
+
+    <h2><span class="num">07</span>The route is an optimisation problem, not a prompt</h2>
+
+    <p>The PathFinding piece is not a prompt at all. It is a Python Lambda that treats the board as an orienteering problem. Every tile carries an expected value: what it pays, minus the lives it costs, minus the tokens the agent will have to emit to answer it. All three convert into points, so a spike trap standing between you and something valuable is not an obstacle, it is a 250-point toll, and often worth paying.</p>
+
+    <p>The planner builds a route over those values, respects the ordering constraint that the key has to come before the door, and refines it until its time budget runs out. Two things I learned the hard way in there: a locked door is a cost, not a wall, and the strategy you pick matters more than it looks. Measured across several hundred generated boards, the greedy coin-first strategy ended the run early on roughly half of them.</p>
+
+    <h2><span class="num">08</span>The finale: three rounds, three different games</h2>
+
+    <p>Which brings us back to the stage.</p>
+
+    <figure class="bleed">
+      <img src="../../assets/img/finals-stage.jpg" alt="The AWS AI League finale in progress: three finalists at a table with laptops, a silhouetted audience, and the live Round 2 of 3 leaderboard mirrored on screens either side of the stage.">
+      <figcaption>Three laptops, three finalists, and the running score on both side screens. This is Round 2, the round the lead changed hands.</figcaption>
+    </figure>
+
+    <p>The finale is a different discipline from everything before it. Your code is frozen. Your tools are frozen. Your prompt is frozen. The only thing you can still change is a short steering instruction you type in the minute before each round starts, and the only thing you know about the map is what is on the screen in front of you.</p>
+
+    <p>Round 1 was a ten-by-ten board with five lives, a locked Red Door worth 3,000 points, and a five-life penalty for answering it wrong. Forty-five seconds is not enough time to do everything, so the whole round is a triage problem. I got my triage wrong. Uday got his right.</p>
+
+    <figure class="bleed">
+      <img src="../../assets/img/finale-r1-podium.jpg" alt="Finale Round 1 of 3 podium: UdayPatil first with 3654, InterruptZero second with 3280, Kuankit third with 1266.">
+      <figcaption>Round 1 of 3. Second.</figcaption>
+    </figure>
+
+    <p>Round 2 was the round. A seven-by-seven board carpeted in coins, and the coins were worth <strong>twenty-five points each</strong>. Two lives. Seventy-five seconds. Meanwhile Schedule Sage, one tile, was worth <strong>1,500</strong>.</p>
+
+    <figure class="bleed">
+      <img src="../../assets/img/finale-r2-board.jpg" alt="Finale Round 2: a seven by seven board almost entirely covered in coin tiles, with a 1:15 clock, two lives, coins worth 25 points each and Schedule Sage worth 1500.">
+      <figcaption>Round 2. Thirty-odd coins on the board. All of them together are worth less than half of one Schedule Sage tile.</figcaption>
+    </figure>
+
+    <p>It is a trap, and it is a good one. Every instinct the game had trained into you over three days said <em>collect the coins</em>. The board was designed to punish exactly that. The planner did not have instincts. It had a table, and the table said the coins were noise. I took 7,537 points in that round. Ankit took 5,953. Uday took 863; a wall ended his run early.</p>
+
+    <p>Round 3 went back to a full board and a 2:30 clock, and it was the closest round of the day: 16,191 to Ankit's 15,917. Two hundred and seventy-four points, after two and a half minutes of parallel play. But the gap from Round 2 held.</p>
+
+    <figure class="bleed">
+      <img src="../../assets/img/finale-r3-podium.jpg" alt="Final standings after three rounds: InterruptZero 27008, Kuankit 23136, UdayPatil 11097.">
+      <figcaption>Final standings after three rounds.</figcaption>
+    </figure>
+
+    <p>First in the qualifier, first in the semifinal, first in the finale. I genuinely did not expect a run that clean, and it wasn't clean round by round, which is sort of the point. I lost the first round of the last stage, and won because the thing I had built kept making good decisions on a board it had never seen, while I stood next to it unable to touch the code.</p>
+
+    <h2><span class="num">09</span>The road to Las Vegas, and a $50,000 global finale</h2>
+
+    <p>Winning at Cisco was not the finish line. It was the qualifier.</p>
+
+    <p>Cisco took this last year. Hemanth Vediyera came out of Transformation Fest, through a 600-strong AWS AI League India field, and was crowned <strong>AWS AI League Global Champion</strong> at re:Invent 2025. The run at Transformation Fest 4.0 earns me a place in the same global finale at <strong>AWS re:Invent 2026</strong> in Las Vegas, where the field narrows to twenty-five people from around the world competing for a <strong>$50,000 prize pool</strong>.</p>
+
+    <p>That changes what every decision is worth. At this level you are not up against prototypes and nice demos. You are up against builders who have already won their way through serious technical pressure, which means the margin for error gets brutally small. Tool reliability, route quality, prompt discipline and token efficiency stop being advantages and start being the entry fee.</p>
+
+    <p>Which is exactly why it is worth doing. The preparation from here is deeper and more deliberate: sharper prompting, tighter execution paths, cleaner recovery when something fails halfway through a run, and a system that stays composed when the format turns chaotic. Different maps, different challenges, almost certainly a different point table, and twenty-four other people who have each already beaten a field of their own.</p>
+
+    <p>Bengaluru proved the architecture could win. Las Vegas is where I find out whether it holds up against the rest of the world. I am going in with confidence and full respect for the room. Fingers crossed.</p>
+
+        <figure class="portrait">
+      <img src="../../assets/img/award-closeup.jpg" alt="The AWS AI League champion plaque held up in front of the Transformation Fest 4.0 stage, reading Champion, 1st Position, Celebrating Innovation, Powered by AWS.">
+      <figcaption>One down.</figcaption>
+    </figure>
+
+    <h2><span class="num">10</span>Thank you</h2>
+
+    <p>To <strong>Ankit Kumar</strong> and <strong>Uday Patil</strong>, for a finale close enough to hurt. Uday took Round 1 off me and Ankit finished Round 3 within 274 points. Competing against you both was the best part of it.</p>
+
+    <figure class="bleed">
+      <img src="../../assets/img/finalists.jpg" alt="The three AWS AI League finalists holding their awards on stage, flanked by the Cisco and AWS leadership team, under a Transformation Fest 4.0 Leadership Connect screen.">
+      <figcaption>The three of us, and the people who ran it.</figcaption>
+    </figure>
+
+    <p>And to <strong>AWS</strong>, for turning "learn agentic AI" into a game with a scoreboard. I have watched a lot of people bounce off this technology from a tutorial. I did not watch a single person bounce off it from a dungeon. The AWS AI League team has built something that got 1,200 Cisco engineers genuinely excited about agentic AI, which is much harder than it sounds.</p>
+
+    <p>And to <strong>Cisco</strong>, for Transformation Fest 4.0. This was the fourth year of the co-innovation event with AWS and the second year of the League, which is the part that actually matters: a one-off hackathon is easy, a thing that comes back is a commitment. They ran pre-event training so that people with no agentic AI experience could turn up and compete on day one. They gave it three days and a real stage, with the finale in front of Cisco and AWS senior leadership rather than a results table filed away on a wiki. And they put 1,200 engineers who would otherwise never have met into the same competition. Not every company turns its internal upskilling into something people genuinely want to win.</p>
+
+    <p>And a word on the partnership behind all of it, because from the inside it does not look like a contract. The part that produced this story is the enablement side of it: Transformation Fest puts thousands of Cisco engineers in front of AWS tooling and asks them to build something, rather than sit through a session about it.</p>
+
+    <p>Two years running, that has ended with a Cisco engineer on a stage at re:Invent. Whatever else a partnership is worth on paper, that is the part you can point at.</p>
+
+    <p><em>See you in the maze.</em></p>
+
+    <footer class="end">
+      <ul class="tags">
+        <li>Cisco</li><li>AWS</li><li>AWS AI League</li><li>Cisco AWS Transformation Fest</li><li>Agentic AI</li><li>Amazon Bedrock</li>
+        <li>Bedrock AgentCore</li><li>AWS Lambda</li><li>Token Economics</li><li>re:Invent 2026</li>
+      </ul>
+      <p>Nishanth Aluhonnu (InterruptZero) · 26 September 2026</p>
+    </footer>
+  </div>
+</div>
+</main>
+<script>
+(function(){
+  var root=document.documentElement,
+      btn=document.getElementById('theme-toggle'),
+      lbl=document.getElementById('theme-label');
+  function paint(){
+    var light=root.getAttribute('data-theme')==='light';
+    lbl.textContent=light?'Dark':'Light';
+    btn.setAttribute('aria-label','Switch to '+(light?'dark':'light')+' theme');
+  }
+  paint();
+  btn.addEventListener('click',function(){
+    var light=root.getAttribute('data-theme')==='light';
+    if(light){ root.removeAttribute('data-theme'); }
+    else { root.setAttribute('data-theme','light'); }
+    try{ localStorage.setItem('theme', light?'dark':'light'); }catch(e){}
+    paint();
+  });
+})();
+</script>
+<script>
+(function(){
+  var imgs = document.querySelectorAll('figure img');
+  if(!imgs.length) return;
+  var box = null, opener = null;
+
+  function close(){
+    if(!box) return;
+    document.removeEventListener('keydown', onKey, true);
+    box.remove(); box = null;
+    document.body.classList.remove('lb-open');
+    if(opener){ opener.focus(); opener = null; }
+  }
+  function onKey(e){
+    if(e.key === 'Escape'){ e.preventDefault(); close(); return; }
+    if(e.key === 'Tab' && box){           // only one control inside, so keep focus on it
+      e.preventDefault();
+      box.querySelector('.close').focus();
+    }
+  }
+  function open(img){
+    if(box) return;
+    opener = img;
+    var fig = img.closest('figure'),
+        cap = fig && fig.querySelector('figcaption');
+
+    box = document.createElement('div');
+    box.className = 'lightbox';
+    box.setAttribute('role','dialog');
+    box.setAttribute('aria-modal','true');
+    box.setAttribute('aria-label', img.alt ? img.alt.slice(0,120) : 'Enlarged image');
+
+    var btn = document.createElement('button');
+    btn.type = 'button'; btn.className = 'close';
+    btn.setAttribute('aria-label','Close image');
+    btn.textContent = '\u00d7';
+
+    var big = document.createElement('img');
+    big.src = img.currentSrc || img.src;
+    big.alt = img.alt || '';
+
+    box.appendChild(btn);
+    box.appendChild(big);
+    if(cap){
+      var p = document.createElement('p');
+      p.className = 'cap'; p.textContent = cap.textContent;
+      box.appendChild(p);
+    }
+    document.body.appendChild(box);
+    document.body.classList.add('lb-open');
+    btn.focus();
+    box.addEventListener('click', close);
+    document.addEventListener('keydown', onKey, true);
+  }
+
+  Array.prototype.forEach.call(imgs, function(img){
+    img.tabIndex = 0;
+    img.setAttribute('role','button');
+    img.setAttribute('aria-label','Enlarge image' + (img.alt ? ': ' + img.alt.slice(0,80) : ''));
+    img.addEventListener('click', function(){ open(img); });
+    img.addEventListener('keydown', function(e){
+      if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); open(img); }
+    });
+  });
+})();
+</script>
+
+<!-- ── Analytics ──────────────────────────────────────────────────────────
+     Both are cookieless, so no consent banner is needed.
+     GoatCounter dashboard : https://nishu88.goatcounter.com
+     Cloudflare            : dash.cloudflare.com → Analytics & Logs → Web Analytics
+     Neither fires on localhost / 127.0.0.1 (see the guard below).           -->
+<script>window.__analytics = !/^(localhost|127\.0\.0\.1|\[::1\])$/.test(location.hostname);</script>
+<script>
+if(window.__analytics){
+  var g=document.createElement('script');
+  g.async=true; g.src='//gc.zgo.at/count.js';
+  g.setAttribute('data-goatcounter','https://nishu88.goatcounter.com/count');
+  document.head.appendChild(g);
+
+  var c=document.createElement('script');
+  c.type='module'; c.src='https://static.cloudflareinsights.com/beacon.min.js';
+  c.setAttribute('data-cf-beacon','{"token":"1c7f8f5a63014833bc865585958e417c"}');
+  document.head.appendChild(c);
+}
+</script>
+</body>
+</html>
