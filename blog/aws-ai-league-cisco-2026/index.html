@@ -40,6 +40,7 @@
       <span class="meta">26 Sep 2026</span>
       <span class="meta">·</span>
       <span class="meta">11 min read</span>
+      <span class="meta" id="post-views" hidden></span>
     </div>
   </header>
 
@@ -366,6 +367,21 @@ if(window.__analytics){
   c.setAttribute('data-cf-beacon','{"token":"1c7f8f5a63014833bc865585958e417c"}');
   document.head.appendChild(c);
 }
+</script>
+<script>
+(function(){
+  if(!window.__analytics) return;
+  var el = document.getElementById('post-views');
+  if(!el) return;
+  fetch('https://nishu88.goatcounter.com/counter/' + encodeURIComponent(location.pathname) + '.json', {mode:'cors'})
+    .then(function(r){ return r.ok ? r.json() : Promise.reject(); })
+    .then(function(d){
+      var n = parseInt(String(d.count).replace(/[^0-9]/g,''), 10);
+      if(!n || n <= 0) return;
+      el.textContent = '\u00b7 ' + n.toLocaleString() + (n === 1 ? ' view' : ' views');
+      el.hidden = false;
+    }).catch(function(){});
+})();
 </script>
 </body>
 </html>

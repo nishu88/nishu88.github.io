@@ -39,12 +39,13 @@
 
   <div class="cards">
     <a href="blog/aws-ai-league-cisco-2026/">
-      <p class="meta">26 Sep 2026 · 11 min read</p>
+      <p class="meta">26 Sep 2026 · 11 min read<span id="card-views" hidden></span></p>
       <h2>1,200 to 1: Winning the AWS AI League at Cisco</h2>
       <p class="sub">A clean sweep of the qualifier, the semifinal and the finale, decided in the end by how little my agent said.</p>
       <ul class="pills"><li>Cisco</li><li>AWS</li><li>AWS AI League</li><li>Agentic AI</li><li>Amazon Bedrock</li><li>Token Economics</li></ul>
     </a>
   </div>
+  <p class="statlink"><a id="full-stats" href="https://nishu88.goatcounter.com/" hidden>Full stats \u2192</a></p>
 </main>
 <footer class="foot">© 2026 Nishanth Aluhonnu</footer>
 <script>
@@ -154,9 +155,9 @@ if(window.__analytics){
 }
 </script>
 <script>
-/* Live counts from GoatCounter's public counter endpoint. Silently does nothing
-   until "allow visitor counts on your website" is enabled in GoatCounter settings,
-   and never shows a broken or zero tile. */
+/* Live counts from GoatCounter's public counter endpoint (no token, CORS open).
+   That endpoint only exposes total + unique per path; countries, referrers and
+   browsers need an authenticated API token, so they live on the dashboard. */
 (function(){
   if(!window.__analytics) return;                       // skip on localhost
   var base = 'https://nishu88.goatcounter.com/counter/';
@@ -165,18 +166,31 @@ if(window.__analytics){
     var n = parseInt(String(x).replace(/[^0-9]/g,''), 10);
     return isNaN(n) ? null : n;
   }
-  function show(id, vid, n){
-    if(n === null || n <= 0) return;
-    document.getElementById(vid).textContent = n.toLocaleString();
-    document.getElementById(id).hidden = false;
+  function get(path){
+    return fetch(base + path + '.json', {mode:'cors'})
+      .then(function(r){ return r.ok ? r.json() : Promise.reject(r.status); });
   }
-  fetch(base + 'TOTAL.json', {mode:'cors'})
-    .then(function(r){ return r.ok ? r.json() : Promise.reject(r.status); })
-    .then(function(d){
-      show('s-views','v-views', num(d.count));
-      show('s-uniq','v-uniq',  num(d.count_unique));
-    })
-    .catch(function(){ /* counter not public, offline, or blocked: leave tiles hidden */ });
+  function fill(tileId, valId, n){
+    if(n === null || n <= 0) return;
+    document.getElementById(valId).textContent = n.toLocaleString();
+    document.getElementById(tileId).hidden = false;
+  }
+
+  // site totals
+  get('TOTAL').then(function(d){
+    fill('s-views','v-views', num(d.count));
+    fill('s-uniq','v-uniq',  num(d.count_unique));
+    var link = document.getElementById('full-stats');
+    if(link) link.hidden = false;                       // dashboard link, once we know stats exist
+  }).catch(function(){});
+
+  // this post's own count, on its card
+  get(encodeURIComponent('/blog/aws-ai-league-cisco-2026/')).then(function(d){
+    var n = num(d.count), el = document.getElementById('card-views');
+    if(n === null || n <= 0 || !el) return;
+    el.textContent = ' \u00b7 ' + n.toLocaleString() + (n === 1 ? ' view' : ' views');
+    el.hidden = false;
+  }).catch(function(){});
 })();
 </script>
 </body>

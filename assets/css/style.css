@@ -280,3 +280,7 @@ body.lb-open{overflow:hidden}
 .stats .v .unit{font-size:.62em;font-weight:600;color:var(--dim);margin-left:.2em;letter-spacing:0}
 .stats .s.live .v{color:var(--gold)}
 .stats .s[hidden]{display:none}
+.statlink{margin:1.4rem 0 0;font-family:var(--display);font-size:.84rem}
+.statlink a{color:var(--dim);text-decoration:none}
+.statlink a:hover{color:var(--gold)}
+.statlink a[hidden]{display:none}
