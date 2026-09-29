@@ -1,0 +1,27 @@
+.gitignore
+  s_1200d0b05bc7c4::t_34acf43994cb93 1
+README.md
+  s_1200d0b05bc7c4::t_0b846fd855e0a5 1-92
+assets/css/style.css
+  s_1200d0b05bc7c4::t_5f76db5a168dcb 1-263
+blog/aws-ai-league-cisco-2026/index.html
+  s_1200d0b05bc7c4::t_982aeeb8cae105 1-371
+index.html
+  s_1200d0b05bc7c4::t_9bb6188cf34815 1-2,4-15,18-92,94-149
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "978c64e4115a0a2d5c1bd99c5b38d8556dc87001",
+  "prompts": {},
+  "sessions": {
+    "s_1200d0b05bc7c4": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "bc9adbb0-f63c-49cd-9eae-b6cb65b9c8c8",
+        "model": "claude-opus-5"
+      },
+      "human_author": "Nishanth Aluhonnu <naluhonn@cisco.com>"
+    }
+  }
+}
