@@ -261,3 +261,22 @@ body.lb-open{overflow:hidden}
   .lightbox{animation:lb-in .15s ease-out}
   @keyframes lb-in{from{opacity:0}to{opacity:1}}
 }
+
+/* ── home stats strip ───────────────────────────── */
+.stats{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(9rem,1fr));gap:1px;
+  background:var(--border);border:1px solid var(--border);border-radius:12px;
+  overflow:hidden;margin:0 0 2.5rem;
+}
+.stats .s{background:var(--surface);padding:.95rem 1.05rem 1.05rem}
+.stats .k{
+  font-family:var(--mono);font-size:.62rem;font-weight:700;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--faint);margin:0 0 .4rem;
+}
+.stats .v{
+  font-family:var(--display);font-weight:800;font-size:1.5rem;letter-spacing:-.03em;
+  line-height:1;margin:0;font-variant-numeric:tabular-nums;color:var(--text);
+}
+.stats .v .unit{font-size:.62em;font-weight:600;color:var(--dim);margin-left:.2em;letter-spacing:0}
+.stats .s.live .v{color:var(--gold)}
+.stats .s[hidden]{display:none}

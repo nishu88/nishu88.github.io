@@ -29,6 +29,14 @@
   <h1>Writing</h1>
   <p class="tagline">Engineering notes on agentic AI, AWS, and things with scoreboards.</p>
 
+  <div class="stats">
+    <div class="s"><p class="k">Posts</p><p class="v">1</p></div>
+    <div class="s"><p class="k">Words</p><p class="v">2.6<span class="unit">k</span></p></div>
+    <div class="s"><p class="k">Latest</p><p class="v">Sep<span class="unit">2026</span></p></div>
+    <div class="s live" id="s-views" hidden><p class="k">Views</p><p class="v" id="v-views">&mdash;</p></div>
+    <div class="s live" id="s-uniq" hidden><p class="k">Readers</p><p class="v" id="v-uniq">&mdash;</p></div>
+  </div>
+
   <div class="cards">
     <a href="blog/aws-ai-league-cisco-2026/">
       <p class="meta">26 Sep 2026 · 11 min read</p>
@@ -144,6 +152,32 @@ if(window.__analytics){
   c.setAttribute('data-cf-beacon','{"token":"1c7f8f5a63014833bc865585958e417c"}');
   document.head.appendChild(c);
 }
+</script>
+<script>
+/* Live counts from GoatCounter's public counter endpoint. Silently does nothing
+   until "allow visitor counts on your website" is enabled in GoatCounter settings,
+   and never shows a broken or zero tile. */
+(function(){
+  if(!window.__analytics) return;                       // skip on localhost
+  var base = 'https://nishu88.goatcounter.com/counter/';
+  function num(x){
+    if(x === undefined || x === null) return null;
+    var n = parseInt(String(x).replace(/[^0-9]/g,''), 10);
+    return isNaN(n) ? null : n;
+  }
+  function show(id, vid, n){
+    if(n === null || n <= 0) return;
+    document.getElementById(vid).textContent = n.toLocaleString();
+    document.getElementById(id).hidden = false;
+  }
+  fetch(base + 'TOTAL.json', {mode:'cors'})
+    .then(function(r){ return r.ok ? r.json() : Promise.reject(r.status); })
+    .then(function(d){
+      show('s-views','v-views', num(d.count));
+      show('s-uniq','v-uniq',  num(d.count_unique));
+    })
+    .catch(function(){ /* counter not public, offline, or blocked: leave tiles hidden */ });
+})();
 </script>
 </body>
 </html>
