@@ -1,0 +1,21 @@
+assets/css/style.css
+  s_1200d0b05bc7c4::t_72464895d28aaf 264-282
+index.html
+  s_1200d0b05bc7c4::t_84900c96fdf064 32-39,156-181
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "3a8b1321b38b545ff9d2466fff95c9095ca2e41a",
+  "prompts": {},
+  "sessions": {
+    "s_1200d0b05bc7c4": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "bc9adbb0-f63c-49cd-9eae-b6cb65b9c8c8",
+        "model": "claude-opus-5"
+      },
+      "human_author": "Nishanth Aluhonnu <naluhonn@cisco.com>"
+    }
+  }
+}
