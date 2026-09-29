@@ -132,7 +132,7 @@ which is why there is no "Full stats" link.
 ## View counts
 
 The seven archive posts display **a fixed baseline plus their live GoatCounter count**. The
-baselines are random 1–100 values chosen once at publish time and written down in
+baselines are random 20–80 values chosen once at publish time and written down in
 [`view-baselines.txt`](view-baselines.txt); their sum is also added to the home page's
 Views / Readers tiles so the listing and the totals agree. The 2026 AWS AI League post has no
 baseline and shows its raw count.

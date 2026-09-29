@@ -241,7 +241,7 @@ if(window.__analytics){
   if(!window.__analytics) return;
   var el = document.getElementById('post-views');
   if(!el) return;
-  var base = 75;   // seeded baseline; see /view-baselines.txt
+  var base = 42;   // seeded baseline; see /view-baselines.txt
   function show(n){
     if(!n || n <= 0) return;
     el.textContent = '\u00b7 ' + n.toLocaleString() + (n === 1 ? ' view' : ' views');

@@ -5,7 +5,7 @@ Every post below displays a view count made of two parts:
 
     displayed = baseline + live GoatCounter count for that path
 
-The baseline is a fixed number drawn at random from 1-100 when the posts were
+The baseline is a fixed number drawn at random from 20-80 when the posts were
 published. It is not a measurement. The live half is real: it comes from
 https://nishu88.goatcounter.com and moves with actual traffic.
 
@@ -16,16 +16,16 @@ Generated 2026-09-30
 
 POST                                     BASELINE
 ---------------------------------------- --------
-two-we-didnt-win-2018-2019                     99
-blockchain-summit-juincubator-2019             85
-hackwell-jssate-2019                           61
-slac-amrita-2019                               75
-business-marathon-esummit-2019                 28
-ingenius-pesit-south-2018                       1
-gazing-with-ml-phaseshift-2018                 56
+two-we-didnt-win-2018-2019                     63
+blockchain-summit-juincubator-2019             44
+hackwell-jssate-2019                           73
+slac-amrita-2019                               42
+business-marathon-esummit-2019                 70
+ingenius-pesit-south-2018                      68
+gazing-with-ml-phaseshift-2018                 37
 aws-ai-league-cisco-2026                        0
 ---------------------------------------- --------
-total added to the site Views/Readers         405
+total added to the site Views/Readers         397
 
 Titles, for reference:
   two-we-didnt-win-2018-2019               The two we didn't win
