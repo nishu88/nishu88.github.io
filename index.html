@@ -30,19 +30,70 @@
   <p class="tagline">Engineering notes on Observability, AI and things with scoreboards.</p>
 
   <div class="stats">
-    <div class="s"><p class="k">Posts</p><p class="v">1</p></div>
-    <div class="s"><p class="k">Words</p><p class="v">2.6<span class="unit">k</span></p></div>
+    <div class="s"><p class="k">Posts</p><p class="v">8</p></div>
+    <div class="s"><p class="k">Words</p><p class="v">8.4<span class="unit">k</span></p></div>
     <div class="s"><p class="k">Latest</p><p class="v">Sep<span class="unit">2026</span></p></div>
     <div class="s live" id="s-views" hidden><p class="k">Views</p><p class="v" id="v-views">&mdash;</p></div>
     <div class="s live" id="s-uniq"  hidden><p class="k">Readers</p><p class="v" id="v-uniq">&mdash;</p></div>
   </div>
 
+  <h2 class="yr">2026</h2>
   <div class="cards">
     <a href="blog/aws-ai-league-cisco-2026/">
-      <p class="meta">26 Sep 2026 · 11 min read<span id="card-views" hidden></span></p>
+      <p class="meta">26 Sep 2026 · 11 min read<span class="cv" hidden></span></p>
       <h2>1,200 to 1: Winning the AWS AI League at Cisco</h2>
       <p class="sub">A clean sweep of the qualifier, the semifinal and the finale, decided in the end by how little my agent said.</p>
       <ul class="pills"><li>Cisco</li><li>AWS</li><li>AWS AI League</li><li>Agentic AI</li><li>Amazon Bedrock</li><li>Token Economics</li></ul>
+    </a>
+  </div>
+
+  <h2 class="yr">2019</h2>
+  <div class="cards">
+    <a href="blog/two-we-didnt-win-2018-2019/">
+      <p class="meta">17 Nov 2019 · 5 min read<span class="cv" hidden></span></p>
+      <h2>The two we didn&rsquo;t win</h2>
+      <p class="sub">Techathlon 2018 and the India Police Hackathon 2019: finalist at both, winner at neither, and the two with the most code left behind.</p>
+      <ul class="pills"><li>RVCE</li><li>Karnataka State Police</li><li>Computer Vision</li><li>LIDAR</li><li>OpenCV</li><li>Face Recognition</li></ul>
+    </a>
+    <a href="blog/blockchain-summit-juincubator-2019/">
+      <p class="meta">21 Sep 2019 · 3 min read<span class="cv" hidden></span></p>
+      <h2>Background checks on a blockchain</h2>
+      <p class="sub">IBM set the problem at the JUIncubator National Blockchain Summit. Second place, and a repository containing one word.</p>
+      <ul class="pills"><li>IBM</li><li>Jain University</li><li>IEEE</li><li>Blockchain</li><li>Distributed Systems</li></ul>
+    </a>
+    <a href="blog/hackwell-jssate-2019/">
+      <p class="meta">13 Apr 2019 · 3 min read<span class="cv" hidden></span></p>
+      <h2>Counting who spoke, and when</h2>
+      <p class="sub">Honeywell&rsquo;s problem at Hackwell 1.0: count the speaker changes in an audio file. No enrolment, no names, no known number of speakers.</p>
+      <ul class="pills"><li>JSSATE</li><li>Honeywell</li><li>Speaker Diarization</li><li>Speech Processing</li><li>Machine Learning</li></ul>
+    </a>
+    <a href="blog/slac-amrita-2019/">
+      <p class="meta">31 Mar 2019 · 4 min read<span class="cv" hidden></span></p>
+      <h2>A voice assistant with the internet switched off</h2>
+      <p class="sub">GE Healthcare&rsquo;s brief at SLAC 2019: voice control for medical systems, authenticated, with no network at all.</p>
+      <ul class="pills"><li>Amrita</li><li>GE Healthcare</li><li>TensorFlow</li><li>Hidden Markov Models</li><li>Android</li><li>Flask</li></ul>
+    </a>
+    <a href="blog/business-marathon-esummit-2019/">
+      <p class="meta">23 Feb 2019 · 3 min read<span class="cv" hidden></span></p>
+      <h2>Selling cement to a room of engineers</h2>
+      <p class="sub">An overnight business plan competition at E-Summit &rsquo;19. No code, no demo, six people and a market.</p>
+      <ul class="pills"><li>RVCE</li><li>E-Cell</li><li>Business Plan</li><li>Sustainability</li><li>Materials</li></ul>
+    </a>
+  </div>
+
+  <h2 class="yr">2018</h2>
+  <div class="cards">
+    <a href="blog/ingenius-pesit-south-2018/">
+      <p class="meta">4 Nov 2018 · 4 min read<span class="cv" hidden></span></p>
+      <h2>Attendance you cannot fake</h2>
+      <p class="sub">Speaker recognition tells you who is speaking. It does not tell you they are in the room. Closing that gap took one extra word.</p>
+      <ul class="pills"><li>PES University</li><li>IEEE Computer Society</li><li>Speaker Recognition</li><li>Hidden Markov Models</li><li>CNN</li><li>Python</li></ul>
+    </a>
+    <a href="blog/gazing-with-ml-phaseshift-2018/">
+      <p class="meta">16 Sep 2018 · 3 min read<span class="cv" hidden></span></p>
+      <h2>Naming galaxies at 74%</h2>
+      <p class="sub">A one-day machine learning contest at Phase Shift 2018. The model is long gone; the certificate still says what it scored.</p>
+      <ul class="pills"><li>BMS College of Engineering</li><li>Phase Shift 2018</li><li>Machine Learning</li><li>Computer Vision</li><li>Astronomy</li></ul>
     </a>
   </div>
 </main>
@@ -181,13 +232,19 @@ if(window.__analytics){
     fill('s-uniq','v-uniq',  num(d.count_unique));
   }).catch(function(){});
 
-  // this post's own count, on its card
-  get(encodeURIComponent('/blog/aws-ai-league-cisco-2026/')).then(function(d){
-    var n = num(d.count), el = document.getElementById('card-views');
-    if(n === null || n <= 0 || !el) return;
-    el.textContent = ' \u00b7 ' + n.toLocaleString() + (n === 1 ? ' view' : ' views');
-    el.hidden = false;
-  }).catch(function(){});
+  // per-card counts, derived from each card's own href
+  Array.prototype.forEach.call(document.querySelectorAll('.cards a[href]'), function(a){
+    var el = a.querySelector('.cv');
+    if(!el) return;
+    var path;
+    try { path = new URL(a.getAttribute('href'), location.href).pathname; } catch(e){ return; }
+    get(encodeURIComponent(path)).then(function(d){
+      var n = num(d.count);
+      if(n === null || n <= 0) return;
+      el.textContent = ' \u00b7 ' + n.toLocaleString() + (n === 1 ? ' view' : ' views');
+      el.hidden = false;
+    }).catch(function(){});
+  });
 })();
 </script>
 </body>
