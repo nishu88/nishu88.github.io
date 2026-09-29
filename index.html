@@ -228,9 +228,25 @@ if(window.__analytics){
 
   // site totals
   get('TOTAL').then(function(d){
-    fill('s-views','v-views', num(d.count));
-    fill('s-uniq','v-uniq',  num(d.count_unique));
-  }).catch(function(){});
+    var v = num(d.count), u = num(d.count_unique);
+    fill('s-views','v-views', BASE_TOTAL + (v === null ? 0 : v));
+    fill('s-uniq','v-uniq',   BASE_TOTAL + (u === null ? 0 : u));
+  }).catch(function(){
+    fill('s-views','v-views', BASE_TOTAL);
+    fill('s-uniq','v-uniq',   BASE_TOTAL);
+  });
+
+  // seeded baselines per post; see /view-baselines.txt
+  var BASE = {
+    '/blog/two-we-didnt-win-2018-2019/': 99,
+    '/blog/blockchain-summit-juincubator-2019/': 85,
+    '/blog/hackwell-jssate-2019/': 61,
+    '/blog/slac-amrita-2019/': 75,
+    '/blog/business-marathon-esummit-2019/': 28,
+    '/blog/ingenius-pesit-south-2018/': 1,
+    '/blog/gazing-with-ml-phaseshift-2018/': 56,
+  };
+  var BASE_TOTAL = 405;
 
   // per-card counts, derived from each card's own href
   Array.prototype.forEach.call(document.querySelectorAll('.cards a[href]'), function(a){
@@ -238,12 +254,16 @@ if(window.__analytics){
     if(!el) return;
     var path;
     try { path = new URL(a.getAttribute('href'), location.href).pathname; } catch(e){ return; }
-    get(encodeURIComponent(path)).then(function(d){
-      var n = num(d.count);
-      if(n === null || n <= 0) return;
+    var b = BASE[path] || 0;
+    function show(n){
+      if(!n || n <= 0) return;
       el.textContent = ' \u00b7 ' + n.toLocaleString() + (n === 1 ? ' view' : ' views');
       el.hidden = false;
-    }).catch(function(){});
+    }
+    get(encodeURIComponent(path)).then(function(d){
+      var n = num(d.count);
+      show(b + (n === null ? 0 : n));
+    }).catch(function(){ show(b); });
   });
 })();
 </script>

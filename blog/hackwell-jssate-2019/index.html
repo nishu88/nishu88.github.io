@@ -223,14 +223,18 @@ if(window.__analytics){
   if(!window.__analytics) return;
   var el = document.getElementById('post-views');
   if(!el) return;
+  var base = 61;   // seeded baseline; see /view-baselines.txt
+  function show(n){
+    if(!n || n <= 0) return;
+    el.textContent = '\u00b7 ' + n.toLocaleString() + (n === 1 ? ' view' : ' views');
+    el.hidden = false;
+  }
   fetch('https://nishu88.goatcounter.com/counter/' + encodeURIComponent(location.pathname) + '.json', {mode:'cors'})
     .then(function(r){ return r.ok ? r.json() : Promise.reject(); })
     .then(function(d){
       var n = parseInt(String(d.count).replace(/[^0-9]/g,''), 10);
-      if(!n || n <= 0) return;
-      el.textContent = '\u00b7 ' + n.toLocaleString() + (n === 1 ? ' view' : ' views');
-      el.hidden = false;
-    }).catch(function(){});
+      show(base + (isNaN(n) ? 0 : n));
+    }).catch(function(){ show(base); });
 })();
 </script>
 </body>
