@@ -1,0 +1,19 @@
+blog/aws-ai-league-cisco-2026/index.html
+  s_1200d0b05bc7c4::t_cd237257247804 73,79,83,225
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "d25c892a8c46fd7d9d0db2be5ec1006fe72375a6",
+  "prompts": {},
+  "sessions": {
+    "s_1200d0b05bc7c4": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "bc9adbb0-f63c-49cd-9eae-b6cb65b9c8c8",
+        "model": "claude-opus-5"
+      },
+      "human_author": "Nishanth D Aluhonnu <29069343+nishu88@users.noreply.github.com>"
+    }
+  }
+}
