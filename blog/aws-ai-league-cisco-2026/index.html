@@ -166,7 +166,7 @@
 
     <figure class="diagram">
       <img src="../../assets/img/aws-ai-league-architecture.jpg" alt="AWS AI League reference architecture. An AgentCore Runtime feeds a Supervisor Agent, which fans out to three Sub Agents. Amazon Bedrock Guardrails sits to the left and AgentCore Memory to the right. Below, an AgentCore Gateway routes down to four AWS Lambda functions, one labelled Navigation tool and one Browser Tool, with an AgentCore Code Interpreter beyond them.">
-      <figcaption>The AWS AI League stack as AWS documents it: Amazon Bedrock for the model, AgentCore for the runtime, memory and tool gateway, Bedrock Guardrails on the input, and Lambda functions as the tools. The supervisor and sub-agents block in the middle is the one piece I did not build. Diagram from the <a href="https://aws.amazon.com/blogs/machine-learning/from-theory-to-delivery-how-atos-upskilled-400-engineers-in-agentic-ai/">AWS Machine Learning Blog</a>.</figcaption>
+      <figcaption>The AWS AI League stack as AWS documents it: Amazon Bedrock for the model, AgentCore for the runtime, memory and tool gateway, Bedrock Guardrails on the input, and Lambda functions as the tools. Diagram from the <a href="https://aws.amazon.com/blogs/machine-learning/from-theory-to-delivery-how-atos-upskilled-400-engineers-in-agentic-ai/">AWS Machine Learning Blog</a>.</figcaption>
     </figure>
 
     <p>I shipped a single agent with no sub-agents at all. The finale prompt opens by saying so, in case any leftover instruction tried to talk it out of that:</p>
