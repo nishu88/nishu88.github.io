@@ -82,6 +82,7 @@
     color:var(--faint); margin-top:.7rem; text-wrap:pretty;
   }
   figure.bleed{max-width:var(--wide)}
+  figure.diagram img{background:#fff; padding:1.1rem}
   .appendix{margin-top:4.5rem; padding-top:2.8rem; border-top:2px solid var(--gold)}
   .appendix .eyebrow2{
     font-family:var(--mono); font-size:.68rem; font-weight:700; letter-spacing:.14em;
